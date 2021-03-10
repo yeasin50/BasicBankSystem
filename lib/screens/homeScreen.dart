@@ -1,3 +1,4 @@
+import 'package:bank_app_social/provider/dummyData.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -6,10 +7,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var data = getdummyData;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("A"),
+    return ListView.separated(
+      itemCount: 10,
+      itemBuilder: (context, index) => ListTile(
+        title: Text(data[index].name),
+      ),
+      separatorBuilder: (BuildContext context, int index) => Divider(
+        thickness: 3,
+        endIndent: 22.2,
+        indent: 23,
+      ),
     );
   }
 }

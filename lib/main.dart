@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'screens/homeScreen.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -27,9 +29,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("A"),
+        title: Text("Basic Bank System"),
       ),
-      body: Center(),
+      body: HomeScreen(),
     );
   }
 }

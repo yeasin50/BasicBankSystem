@@ -5,15 +5,18 @@ class Client {
   final String phone;
   final String address;
 
-  DateTime accCreated = DateTime.now();
-  double balance = 0.0;
-  final String imagePath;
-  
-  Client({
-    required this.name,
-    required this.email,
-    required this.phone,
-    required this.address,
-    required this.imagePath,
-  });
+// we cant use this way on constructor
+// because constructor default value must be constans
+  DateTime? accCreated = DateTime.now();
+
+  double? balance;
+  String? imagePath;
+  Client(
+      {required this.name,
+      required this.email,
+      required this.phone,
+      required this.address,
+      required this.imagePath,
+      this.balance = 0,
+      this.accCreated});
 }
