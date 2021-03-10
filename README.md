@@ -34,7 +34,6 @@ two social media from such as `Facebook and Google.`
 - email
 - more....
 ```
-
 ----- 
 
 ## Getting Started
