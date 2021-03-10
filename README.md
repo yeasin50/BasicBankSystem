@@ -38,6 +38,7 @@ two social media from such as `Facebook and Google.`
 ----- 
 
 ## Getting Started
+while flutter v2 support web on stable channel, we will use stable channel, for window,linux+.. use beta and read doc
 
 A few resources to get you started if this is your first Flutter project:
 
