@@ -1,4 +1,8 @@
+import 'package:bank_app_social/provider/client_provider.dart';
+import 'package:bank_app_social/screens/authScreen.dart';
+import 'package:bank_app_social/screens/client_profile.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/homeScreen.dart';
 
@@ -9,13 +13,24 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Basic Bank System',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (_) => ClientProvider(),
+          ),
+        ],
+        child: MaterialApp(
+          title: 'Basic Bank System',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: MyHomePage(),
+          routes: {
+            AuthScreen.routeName: (_) => AuthScreen(),
+            HomeScreen.routeName: (_) => HomeScreen(),
+            ClientProfile.routeName: (_) => ClientProfile(),
+          },
+        ));
   }
 }
 
@@ -29,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: HomeScreen(),
+        body: ClientProfile(),
       ),
     );
   }
