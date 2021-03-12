@@ -54,6 +54,55 @@ class _ClientProfileState extends State<ClientProfile> {
     double height = SizeConfig.screenHeight!;
     double width = SizeConfig.screenWidth!;
     double logoRadious = getProportionateScreenWidth(60);
+
+    var cartItem = 3;
+    var cartSize = width * .23 * 3 / cartItem;
+
+    ///`generated Options`
+    //* we need to pass size according gridItem list, coz that design depend on this Size
+    List<CardItem> getGriditems = [
+      CardItem(
+          size: cartSize,
+          text: "Send Money",
+          logo: CircleAvatar(
+            //TODO:: Test this later with container
+            // width: cartSize * .7,
+            radius: cartSize * .4,
+            child: Icon(
+              Icons.person,
+              color: Colors.yellow,
+            ),
+          )),
+      CardItem(
+          size: cartSize,
+          text: "Send Money",
+          logo: CircleAvatar(
+            radius: cartSize * .4,
+            child: Icon(Icons.person),
+          )),
+      CardItem(
+          size: cartSize,
+          text: "Send Money",
+          logo: CircleAvatar(
+            radius: cartSize * .4,
+            child: Icon(Icons.person),
+          )),
+      CardItem(
+          size: cartSize,
+          text: "Send Money",
+          logo: CircleAvatar(
+            radius: cartSize * .4,
+            child: Icon(Icons.person),
+          )),
+      CardItem(
+          size: cartSize,
+          text: "Send Money",
+          logo: CircleAvatar(
+            radius: cartSize * .4,
+            child: Icon(Icons.person),
+          )),
+    ];
+
     return Column(children: <Widget>[
       ///``
       Container(
@@ -138,20 +187,37 @@ class _ClientProfileState extends State<ClientProfile> {
       ///DONE:: Balance ,
       CurrentBalanceBar(clientData.balance!),
 
-      ///TODO:: send money, transactionList,// we will make build method with containter size
-      Container(
-        color: Colors.pink.withOpacity(.5),
-        width: width * .3,
-        height: width * .3,
-        child: CardItem(
-            size: width * .3,
-            text: "Send Money",
-            logo: CircleAvatar(
-              minRadius: logoRadious * .5,
-              maxRadius: logoRadious * .7,
-              // radius: logoRadious,
-              child: Icon(Icons.person),
-            )),
+      ///Done:: send money, transactionList,// we will make build method with containter size
+      // Expanded(
+      //   child: GridView.count(
+      //     crossAxisCount: cartItem,
+      //     childAspectRatio: 1 / 1,
+      //     crossAxisSpacing: 16,
+      //     mainAxisSpacing: 16,
+      //     padding: const EdgeInsets.all(24),
+      //     children: getGriditems,
+      //     physics: BouncingScrollPhysics(),
+      //   ),
+      // ),
+      Expanded(
+        child: GridView.builder(
+            itemCount: getGriditems.length,
+            gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: cartItem,
+              mainAxisSpacing: 16,
+              childAspectRatio: 1,
+              crossAxisSpacing: 16,
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              return new Card(
+                child: new InkResponse(
+                  child: getGriditems[index],
+                  onTap: () {
+                    print(index);
+                  },
+                ),
+              );
+            }),
       ),
     ]);
   }
