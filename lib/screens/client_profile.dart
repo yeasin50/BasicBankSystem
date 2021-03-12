@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bank_app_social/configs/size.dart';
 import 'package:bank_app_social/models/client.dart';
 import 'package:bank_app_social/provider/client_provider.dart';
+import 'package:bank_app_social/widgets/card_option_item.dart';
 import 'package:bank_app_social/widgets/currentBalance.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +24,7 @@ class _ClientProfileState extends State<ClientProfile> {
 
     ///`For Designing UI`
     clientData = Client(
-      name: "yeasin ",
+      name: "Md. Yeasin Sheikh",
       email: "yeasinSheikh5@gmail.com",
       phone: "+880175469898",
       address: "Manikganj Sadar, Dhaka ",
@@ -101,15 +102,17 @@ class _ClientProfileState extends State<ClientProfile> {
                           BoxShadow(
                               blurRadius: 10,
                               color: Colors.white,
-                              spreadRadius: 5)
+                              spreadRadius: 5),
                         ],
                       ),
                     ),
                     SizedBox(
-                      height: logoRadious * .055,
+                      height: logoRadious * .1,
                     ),
+
+                    ///`Name Field`
                     Text(
-                      "Md. Yeasin Sheikh",
+                      clientData.name,
                       style: TextStyle(
                           fontSize:
                               Theme.of(context).textTheme.headline6!.fontSize),
@@ -118,7 +121,7 @@ class _ClientProfileState extends State<ClientProfile> {
                       height: logoRadious * .040,
                     ),
                     Text(
-                      "+8801715469898",
+                      clientData.phone,
                       style: TextStyle(
                           fontSize:
                               Theme.of(context).textTheme.bodyText1!.fontSize),
@@ -132,8 +135,24 @@ class _ClientProfileState extends State<ClientProfile> {
       ),
 
       ///`EOF Header`
-      ///TODO:: Balance , Next some Icons
-      CurrentBalanceBar(),
+      ///DONE:: Balance ,
+      CurrentBalanceBar(clientData.balance!),
+
+      ///TODO:: send money, transactionList,// we will make build method with containter size
+      Container(
+        color: Colors.pink.withOpacity(.5),
+        width: width * .3,
+        height: width * .3,
+        child: CardItem(
+            size: width * .3,
+            text: "Send Money",
+            logo: CircleAvatar(
+              minRadius: logoRadious * .5,
+              maxRadius: logoRadious * .7,
+              // radius: logoRadious,
+              child: Icon(Icons.person),
+            )),
+      ),
     ]);
   }
 }
