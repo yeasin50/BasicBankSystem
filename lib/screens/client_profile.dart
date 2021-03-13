@@ -55,7 +55,7 @@ class _ClientProfileState extends State<ClientProfile> {
     double width = SizeConfig.screenWidth!;
     double logoRadious = getProportionateScreenWidth(60);
 
-    var cartItem = 3;
+    var cartItem = 2;
     var cartSize = width * .23 * 3 / cartItem;
 
     ///`generated Options`
@@ -75,33 +75,72 @@ class _ClientProfileState extends State<ClientProfile> {
           )),
       CardItem(
           size: cartSize,
-          text: "Send Money",
+          text: "Payment",
           logo: CircleAvatar(
             radius: cartSize * .4,
             child: Icon(Icons.person),
           )),
       CardItem(
           size: cartSize,
-          text: "Send Money",
+          text: "Recharge",
           logo: CircleAvatar(
             radius: cartSize * .4,
             child: Icon(Icons.person),
           )),
       CardItem(
           size: cartSize,
-          text: "Send Money",
+          text: "Cash Out",
           logo: CircleAvatar(
             radius: cartSize * .4,
             child: Icon(Icons.person),
           )),
       CardItem(
           size: cartSize,
-          text: "Send Money",
+          text: "Reset Account",
+          logo: CircleAvatar(
+            radius: cartSize * .4,
+            child: Icon(Icons.person),
+          )),
+      CardItem(
+          size: cartSize,
+          text: "help",
           logo: CircleAvatar(
             radius: cartSize * .4,
             child: Icon(Icons.person),
           )),
     ];
+
+    /// navigate to Diff Screen
+    void onOptionClick(int index) {
+      switch (index) {
+        case 0:
+          log("Send Money");
+          break;
+
+        case 1:
+          log("Payment");
+          break;
+
+        case 2:
+          log("Recharge");
+          break;
+
+        case 3:
+          log("Cash Out");
+          break;
+
+        case 4:
+          log("Reset Pin");
+          break;
+
+        case 5:
+          log("help");
+          break;
+
+        default:
+          log("None gonna happen");
+      }
+    }
 
     return Column(children: <Widget>[
       ///``
@@ -200,24 +239,24 @@ class _ClientProfileState extends State<ClientProfile> {
       //   ),
       // ),
       Expanded(
-        child: GridView.builder(
-            itemCount: getGriditems.length,
-            gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: cartItem,
-              mainAxisSpacing: 16,
-              childAspectRatio: 1,
-              crossAxisSpacing: 16,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              return new Card(
-                child: new InkResponse(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: GridView.builder(
+              physics: BouncingScrollPhysics(),
+              itemCount: getGriditems.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: cartItem,
+                mainAxisSpacing: 24,
+                childAspectRatio: 1,
+                crossAxisSpacing: 24,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return InkResponse(
                   child: getGriditems[index],
-                  onTap: () {
-                    print(index);
-                  },
-                ),
-              );
-            }),
+                  onTap: () => onOptionClick(index),
+                );
+              }),
+        ),
       ),
     ]);
   }

@@ -6,12 +6,20 @@ class ClientProvider with ChangeNotifier {
 
   get clients => _clients;
 
+  get totalClient => _clients?.length;
+
   addClient(Client client) async {
     _clients!.add(client);
     notifyListeners();
   }
 
-  get totalClient => _clients?.length;
+  Future<List<String>> getClientNames() async {
+    List<String> names = [];
+    _clients!.forEach((element) {
+      names.add(element.name);
+    });
+    return names;
+  }
 
   /// `initialzied Dummy Data as Test`
   ///`Dummy data for Ui Test`

@@ -16,6 +16,7 @@ class CardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     //build logo and label for each item
     return Container(
+      // color: Colors.transparent,
       // color: Colors.yellow,
       width: size,
       height: size,

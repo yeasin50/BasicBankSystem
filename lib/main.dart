@@ -1,6 +1,7 @@
 import 'package:bank_app_social/provider/client_provider.dart';
 import 'package:bank_app_social/screens/authScreen.dart';
 import 'package:bank_app_social/screens/client_profile.dart';
+import 'package:bank_app_social/screens/moneyTransferScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -44,7 +45,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: ClientProfile(),
+        ///TODO::: Test diff widget base HOme
+        body: TransactionScreen(),
       ),
     );
   }
