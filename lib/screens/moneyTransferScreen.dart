@@ -1,11 +1,11 @@
 import 'dart:developer';
 
-import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:bank_app_social/provider/client_provider.dart';
 import 'package:bank_app_social/widgets/appBar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
 
 class TransactionScreen extends StatefulWidget {
   @override
@@ -18,11 +18,15 @@ class _TransactionScreenState extends State<TransactionScreen> {
   late List<Step> _steps;
   late List<StepState> _listState;
 
-  GlobalKey<AutoCompleteTextFieldState<String>> _keyNameField = new GlobalKey();
+  //amount
+  TextEditingController amountController = TextEditingController();
+
+  // GlobalKey<AutoCompleteTextFieldState<String>> _keyNameField = new GlobalKey();
   String currentText = "";
+  String? selectedName = "";
 
   ///TODO:: use provider to get clientNames
-  List<String> _suggetionNames = [
+  var suggetionNames = [
     "Yeasom",
     "Sheikg",
     "AAAAA",
@@ -30,19 +34,67 @@ class _TransactionScreenState extends State<TransactionScreen> {
     "ABS",
   ];
 
+  @override
+  void initState() {
+    _current = 0;
+    _listState = [
+      StepState.indexed,
+      StepState.editing,
+      StepState.complete,
+      StepState.error
+    ];
+    super.initState();
+  }
+
+  StepState nameStepState() {
+    // StepState.indexed,
+    //   StepState.editing,
+    //   StepState.complete,
+    //   StepState.error
+    // if running then edit mode
+    // if done edit=>complete then check error
+
+    if (_current == 0) return StepState.editing;
+    if (_current > 0) return StepState.complete;
+    if (!suggetionNames.contains(selectedName))
+      return StepState.error;
+    else
+      return StepState.indexed;
+  }
+
   List<Step> _createSteps(BuildContext context) {
     _steps = <Step>[
       Step(
-        state: _current == 0
-            ? _listState[1]
-            : _current > 0
-                ? _listState[2]
-                : _listState[0],
+        ///TODO:: Add error steps here
+        state: nameStepState(),
         title: const Text('Receiver'),
         content: Container(
-          child: SimpleAutoCompleteTextField(
-            key: _keyNameField,
-            suggestions: _suggetionNames,
+          child: SimpleAutocompleteFormField<String>(
+            decoration: InputDecoration(
+                // labelText: 'Receiver name', border: OutlineInputBorder(),
+                errorText:
+                    suggetionNames.contains(selectedName) || selectedName != ""
+                        ? null
+                        : "Invalid user"),
+            // suggestionsHeight: 200.0,
+            maxSuggestions: 10,
+            itemBuilder: (context, item) => Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(item!),
+            ),
+            onSearch: (String search) async => suggetionNames
+                .where(
+                    (name) => name.toLowerCase().contains(search.toLowerCase()))
+                .toList(),
+            itemFromString: (string) => suggetionNames.singleWhere(
+                (letter) => letter == string.toLowerCase(),
+                orElse: () => ''),
+            onChanged: (value) => setState(() => selectedName = value),
+            onSaved: (value) {
+              setState(() => selectedName = value);
+            },
+            validator: (letter) =>
+                suggetionNames.contains(letter) ? 'Invalid letter.' : null,
           ),
         ),
         isActive: true,
@@ -53,43 +105,25 @@ class _TransactionScreenState extends State<TransactionScreen> {
             : _current > 1
                 ? _listState[2]
                 : _listState[0],
-        title: new Text('Step 2'),
-        content: new Text('Do Something'),
+        title: const Text('Amount'),
+        content: TextField(
+          controller: amountController,
+          keyboardType: TextInputType.number,
+        ),
         isActive: true,
       ),
       Step(
-        state: _current == 2
+        state: _current == 3
             ? _listState[1]
             : _current > 2
                 ? _listState[2]
                 : _listState[0],
-        title: new Text('Step 3'),
-        content: new Text('Do Something'),
-        isActive: true,
-      ),
-      Step(
-        state: _current == 2
-            ? _listState[1]
-            : _current > 2
-                ? _listState[2]
-                : _listState[0],
-        title: new Text('Step 3'),
+        title: const Text('Procced'),
         content: new Text('Do Something'),
         isActive: true,
       ),
     ];
     return _steps;
-  }
-
-  @override
-  void initState() {
-    _current = 0;
-    _listState = [
-      StepState.indexed,
-      StepState.editing,
-      StepState.complete,
-    ];
-    super.initState();
   }
 
   @override
@@ -124,7 +158,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
               // log("current step : $_currentStep");
 
               ///why -2? because if we look close enough about stateChanges , we can find it changes after click
-              if (_current > _steps.length - 2) {
+              if (_current > _steps.length - 2 ||
+                  !suggetionNames.contains(selectedName)) {
+                // make transaction from here
                 return;
               }
               setState(() {
@@ -132,6 +168,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
               });
             },
             onStepTapped: (index) {
+              if (!suggetionNames.contains(selectedName)) {
+                return;
+              }
               setState(() {
                 _current = index;
               });
@@ -142,10 +181,12 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   onPressed: onStepContinue,
                   child: Text("Continue"),
                 ),
-                FlatButton(
-                  onPressed: onStepCancel,
-                  child: Text("Cancel"),
-                ),
+                _current == 0
+                    ? SizedBox()
+                    : FlatButton(
+                        onPressed: onStepCancel,
+                        child: Text("Previous"),
+                      ),
               ],
             ),
           ),
