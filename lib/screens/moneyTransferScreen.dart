@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bank_app_social/provider/client_provider.dart';
 import 'package:bank_app_social/widgets/appBar.dart';
+import 'package:bank_app_social/widgets/transaction_overview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -80,7 +81,11 @@ class _TransactionScreenState extends State<TransactionScreen> {
             maxSuggestions: 10,
             itemBuilder: (context, item) => Padding(
               padding: EdgeInsets.all(8.0),
-              child: Text(item!),
+              child: ListTile(
+                  leading: CircleAvatar(
+                    child: Icon(Icons.person),
+                  ),
+                  title: Text(item!)),
             ),
             onSearch: (String search) async => suggetionNames
                 .where(
@@ -119,7 +124,11 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 ? _listState[2]
                 : _listState[0],
         title: const Text('Procced'),
-        content: new Text('Do Something'),
+        content: TransactionConfOverview(
+          sendername: "Yeasin",
+          receiverName: "Sheikh",
+          amount: 123123,
+        ),
         isActive: true,
       ),
     ];
@@ -156,8 +165,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
             onStepContinue: () {
               // log(transactionSteps.length.toString());
               // log("current step : $_currentStep");
-
               ///why -2? because if we look close enough about stateChanges , we can find it changes after click
+              if (_current == 2) {
+                log("Submit");
+              }
               if (_current > _steps.length - 2 ||
                   !suggetionNames.contains(selectedName)) {
                 // make transaction from here

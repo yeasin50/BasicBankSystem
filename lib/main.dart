@@ -2,7 +2,7 @@ import 'package:bank_app_social/provider/client_provider.dart';
 import 'package:bank_app_social/screens/authScreen.dart';
 import 'package:bank_app_social/screens/client_profile.dart';
 import 'package:bank_app_social/screens/moneyTransferScreen.dart';
-import 'package:bank_app_social/widgets/tester.dart';
+import 'package:bank_app_social/widgets/transaction_overview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -47,11 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       child: Scaffold(
         ///TODO::: Test diff widget base HOme
-        body: TransactionConfOverview(
-          sendername: "Yeasin",
-          receiverName: "Sheikh",
-          amount: 123123,
-        ),
+        body: TransactionScreen(),
       ),
     );
   }
