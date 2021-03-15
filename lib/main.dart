@@ -29,8 +29,9 @@ class MyApp extends StatelessWidget {
           home: MyHomePage(),
           routes: {
             AuthScreen.routeName: (_) => AuthScreen(),
-            HomeScreen.routeName: (_) => HomeScreen(),
+            ClientsOverviewScreen.routeName: (_) => ClientsOverviewScreen(),
             ClientProfile.routeName: (_) => ClientProfile(),
+            TransactionScreen.routeName: (_) => TransactionScreen(),
           },
         ));
   }
@@ -47,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       child: Scaffold(
         ///TODO::: Test diff widget base HOme
-        body: TransactionScreen(),
+        body: ClientProfile(),
       ),
     );
   }

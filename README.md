@@ -15,7 +15,7 @@ all transfers happened.
 *  Home Screen > 
 -  View all Customers> 
 -  Select and View one Customer> 
--  Transfer Money> 
+-  Transfer Money>  
 -  Select customer to transfer to > 
 *  View all Customers.  
 ```

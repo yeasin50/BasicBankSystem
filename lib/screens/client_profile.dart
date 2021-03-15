@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:bank_app_social/configs/size.dart';
 import 'package:bank_app_social/models/client.dart';
 import 'package:bank_app_social/provider/client_provider.dart';
+import 'package:bank_app_social/screens/homeScreen.dart';
+import 'package:bank_app_social/screens/moneyTransferScreen.dart';
 import 'package:bank_app_social/widgets/card_option_item.dart';
 import 'package:bank_app_social/widgets/currentBalance.dart';
 import 'package:flutter/material.dart';
@@ -75,6 +77,13 @@ class _ClientProfileState extends State<ClientProfile> {
           )),
       CardItem(
           size: cartSize,
+          text: "Users",
+          logo: CircleAvatar(
+            radius: cartSize * .4,
+            child: Icon(Icons.person),
+          )),
+      CardItem(
+          size: cartSize,
           text: "Payment",
           logo: CircleAvatar(
             radius: cartSize * .4,
@@ -115,10 +124,12 @@ class _ClientProfileState extends State<ClientProfile> {
       switch (index) {
         case 0:
           log("Send Money");
+          Navigator.of(context).pushNamed(TransactionScreen.routeName);
           break;
 
         case 1:
-          log("Payment");
+          Navigator.of(context).pushNamed(ClientsOverviewScreen.routeName);
+          log("OverView");
           break;
 
         case 2:

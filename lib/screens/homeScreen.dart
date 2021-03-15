@@ -10,13 +10,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
-  static const String routeName = "/home_screen";
+class ClientsOverviewScreen extends StatefulWidget {
+  static const String routeName = "/users_screen";
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _ClientsOverviewScreenState createState() => _ClientsOverviewScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _ClientsOverviewScreenState extends State<ClientsOverviewScreen> {
   @override
   void initState() {
     super.initState();
@@ -28,30 +28,32 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Column(
-      children: [
-        if (kIsWeb) MyAppBar("Home Screen"),
-        if (!kIsWeb)
-          AppBar(
-            title: const Text("Home Screen"),
-          ),
-        Consumer<ClientProvider>(
-          builder: (_, data, __) => Expanded(
-            child: ListView.separated(
-              itemCount: data.clients.length,
-              itemBuilder: (context, index) {
-                return ClientRow(index);
-              },
-              separatorBuilder: (BuildContext context, int index) => Divider(
-                thickness: 2,
-                indent: 20,
-                endIndent: 20,
+    return Scaffold(
+      body: Column(
+        children: [
+          if (kIsWeb) MyAppBar("Users"),
+          if (!kIsWeb)
+            AppBar(
+              title: const Text("Users"),
+            ),
+          Consumer<ClientProvider>(
+            builder: (_, data, __) => Expanded(
+              child: ListView.separated(
+                itemCount: data.clients.length,
+                itemBuilder: (context, index) {
+                  return ClientRow(index);
+                },
+                separatorBuilder: (BuildContext context, int index) => Divider(
+                  thickness: 2,
+                  indent: 20,
+                  endIndent: 20,
+                ),
+                physics: BouncingScrollPhysics(),
               ),
-              physics: BouncingScrollPhysics(),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

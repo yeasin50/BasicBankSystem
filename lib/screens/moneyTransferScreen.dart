@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
 
 class TransactionScreen extends StatefulWidget {
+  static const String routeName = "/transaction_screen";
   @override
   _TransactionScreenState createState() => _TransactionScreenState();
 }
@@ -140,69 +141,74 @@ class _TransactionScreenState extends State<TransactionScreen> {
     super.didChangeDependencies();
   }
 
+  ///`Send Money`
+  sendMoney() async {
+    log("make transaction happen");
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        if (kIsWeb) MyAppBar("Transaction Center"),
-        if (!kIsWeb)
-          AppBar(
-            title: Text("Transaction Center"),
-          ),
-        Expanded(
-          child: Stepper(
-            physics: ClampingScrollPhysics(),
-            currentStep: _current,
-            steps: _createSteps(context),
-            onStepCancel: () {
-              if (_current <= 0) {
-                return;
-              }
-              setState(() {
-                _current--;
-              });
-            },
-            onStepContinue: () {
-              // log(transactionSteps.length.toString());
-              // log("current step : $_currentStep");
-              ///why -2? because if we look close enough about stateChanges , we can find it changes after click
-              if (_current == 2) {
-                log("Submit");
-              }
-              if (_current > _steps.length - 2 ||
-                  !suggetionNames.contains(selectedName)) {
-                // make transaction from here
-                return;
-              }
-              setState(() {
-                _current++;
-              });
-            },
-            onStepTapped: (index) {
-              if (!suggetionNames.contains(selectedName)) {
-                return;
-              }
-              setState(() {
-                _current = index;
-              });
-            },
-            controlsBuilder: (context, {onStepCancel, onStepContinue}) => Row(
-              children: [
-                FlatButton(
-                  onPressed: onStepContinue,
-                  child: Text("Continue"),
-                ),
-                _current == 0
-                    ? SizedBox()
-                    : FlatButton(
-                        onPressed: onStepCancel,
-                        child: Text("Previous"),
-                      ),
-              ],
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          if (kIsWeb) MyAppBar("Transaction Center"),
+          if (!kIsWeb)
+            AppBar(
+              title: Text("Transaction Center"),
             ),
-          ),
-        )
-      ],
+          Expanded(
+            child: Stepper(
+              physics: ClampingScrollPhysics(),
+              currentStep: _current,
+              steps: _createSteps(context),
+              onStepCancel: () {
+                if (_current <= 0) {
+                  return;
+                }
+                setState(() {
+                  _current--;
+                });
+              },
+              onStepContinue: () {
+                // log(transactionSteps.length.toString());
+                // log("current step : $_currentStep");
+                ///why -2? because if we look close enough about stateChanges , we can find it changes after click
+                if (_current == 2) sendMoney();
+                if (_current > _steps.length - 2 ||
+                    !suggetionNames.contains(selectedName)) {
+                  // make transaction from here
+                  return;
+                }
+                setState(() {
+                  _current++;
+                });
+              },
+              onStepTapped: (index) {
+                if (!suggetionNames.contains(selectedName)) {
+                  return;
+                }
+                setState(() {
+                  _current = index;
+                });
+              },
+              controlsBuilder: (context, {onStepCancel, onStepContinue}) => Row(
+                children: [
+                  FlatButton(
+                    onPressed: onStepContinue,
+                    child: Text("Continue"),
+                  ),
+                  _current == 0
+                      ? SizedBox()
+                      : FlatButton(
+                          onPressed: onStepCancel,
+                          child: Text("Previous"),
+                        ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
