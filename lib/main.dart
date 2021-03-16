@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/homeScreen.dart';
+import 'screens/testRive.dart';
+import 'widgets/authForm.dart';
 
 void main() {
   runApp(MyApp());
@@ -48,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       child: Scaffold(
         ///TODO::: Test diff widget base HOme
-        body: ClientProfile(),
+        body: RiveChar(),
       ),
     );
   }
