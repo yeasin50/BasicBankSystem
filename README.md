@@ -42,6 +42,13 @@ let's think about water drop effect for UI or partivles flow
 
 having trouble because all packages doesnt support null safelty 
 
+so we can run using this 
+
+```
+$ dart --no-sound-null-safety run   
+$ flutter run --no-sound-null-safety
+```
+
 Rive2 doesnt have many things like flare/rive. we need make reverse method. also contrains doesnt support on rive2 -_-
 
 

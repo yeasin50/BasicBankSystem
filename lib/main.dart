@@ -1,3 +1,4 @@
+import 'package:bank_app_social/provider/anim_provider.dart';
 import 'package:bank_app_social/provider/client_provider.dart';
 import 'package:bank_app_social/screens/authScreen.dart';
 import 'package:bank_app_social/screens/client_profile.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/homeScreen.dart';
-import 'screens/testRive.dart';
+import 'screens/dash_rive.dart';
 import 'widgets/authForm.dart';
 
 void main() {
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(
             create: (_) => ClientProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => DashProvider(),
           ),
         ],
         child: MaterialApp(
@@ -48,10 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        ///TODO::: Test diff widget base HOme
-        body: RiveChar(),
-      ),
+      child: AuthScreen(),
     );
   }
 }
