@@ -16,7 +16,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Consumer<DashProvider>(
-        builder: (_, data, __) => GestureDetector(
+        builder: (context, data, __) => GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () {
             FocusScope.of(context).requestFocus(

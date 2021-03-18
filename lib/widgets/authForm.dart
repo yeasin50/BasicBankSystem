@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bank_app_social/provider/anim_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +22,18 @@ class _AuthFormState extends State<AuthForm> {
     return null;
   }
 
-  _trySubmit() {}
+  _trySubmit() {
+    final provider = Provider.of<DashProvider>(context, listen: false);
+
+    // ///add happy and sad animation here
+    print("user : $_userName pass: $_password");
+    if (_userName == "yeasin" && _password == "1234") {
+      provider.dashState(DashState.happy);
+    } else {
+      provider.dashState(DashState.sad);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<DashProvider>(
@@ -86,8 +99,12 @@ class _AuthFormState extends State<AuthForm> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Icon(Icons.settings_backup_restore),
-                      Icon(Icons.settings_backup_restore),
+                      // GestureDetector(
+                      //     onTap: data.dashState(DashState.happy),
+                      //     child: Icon(Icons.settings_backup_restore)),
+                      // GestureDetector(
+                      //     onTap: data.dashState(DashState.sad),
+                      //     child: Icon(Icons.settings_backup_restore)),
                     ],
                   ),
                 )

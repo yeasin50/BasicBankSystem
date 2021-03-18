@@ -113,10 +113,21 @@ class _RiveCharState extends State<RiveChar>
   _changeState(DashState currentState, DashState prevState) {
     switch (currentState) {
       case DashState.happy:
-        _happy();
+        if (prevState == DashState.idle) _happyFromIdle();
+        if (prevState == DashState.onPassword)
+          _happyFromPass();
+        else
+          _happyFromUser();
         break;
+
       case DashState.sad:
-        _sad();
+        if (prevState == DashState.onPassword)
+          _sadFromPassword();
+        else if (prevState == DashState.onType)
+          _sadFromUsername();
+        else
+          _sadFromIdle();
+
         break;
       case DashState.idle:
         if (prevState == DashState.onType)
@@ -156,31 +167,61 @@ class _RiveCharState extends State<RiveChar>
     });
   }
 
-  _happy() {
-    if (!onTypeAnime.isActive) {
-      playStartTypeAnim();
-      startTypeAnim.isActiveChanged.addListener(() {
-        if (!startTypeAnim.isActive)
-          SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
-            _playHappyModeAnim();
-          });
-      });
-    } else
-      _playHappyModeAnim();
+//// happy from idle
+  _happyFromIdle() {
+    playStartTypeAnim();
+    startTypeAnim.isActiveChanged.addListener(() {
+      if (!startTypeAnim.isActive)
+        SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+          _playHappyModeAnim();
+        });
+    });
   }
 
-  /// afterSadMode back to idle
-  _sad() {
+//happy from password
+  _happyFromPass() {
+    _playunhideOnType();
+    unHideOnTypeAnim.isActiveChanged.addListener(() {
+      if (unHideOnTypeAnim.isActive == false) {
+        SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+          _playHappyModeAnim();
+        });
+      }
+    });
+  }
+
+// happy from userName
+  _happyFromUser() {
+    _playHappyModeAnim();
+  }
+
+  ///sad from password
+  _sadFromPassword() {
+    _playunhideOnType();
+    unHideOnTypeAnim.isActiveChanged.addListener(() {
+      if (unHideOnTypeAnim.isActive == false) {
+        SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+          _playSadModeAnim();
+        });
+      }
+    });
+  }
+
+  ///sad from idle
+  _sadFromIdle() {
     playStartTypeAnim();
-    if (!onTypeAnime.isActive) {
-      startTypeAnim.isActiveChanged.addListener(() {
-        if (!startTypeAnim.isActive)
-          SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
-            _playSadModeAnim();
-          });
-      });
-    } else
-      _playSadModeAnim();
+    startTypeAnim.isActiveChanged.addListener(() {
+      if (startTypeAnim.isActive == false) {
+        SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+          _playSadModeAnim();
+        });
+      }
+    });
+  }
+
+  //sad from userNameField
+  _sadFromUsername() {
+    _playSadModeAnim();
   }
 
   _userNameonIdle() {
