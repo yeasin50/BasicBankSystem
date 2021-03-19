@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:bank_app_social/configs/size.dart';
+import 'package:bank_app_social/main.dart';
 import 'package:bank_app_social/models/client.dart';
 import 'package:bank_app_social/provider/client_provider.dart';
+import 'package:bank_app_social/provider/dummy_data.dart';
 import 'package:bank_app_social/screens/homeScreen.dart';
 import 'package:bank_app_social/screens/moneyTransferScreen.dart';
 import 'package:bank_app_social/widgets/card_option_item.dart';
@@ -26,14 +28,7 @@ class _ClientProfileState extends State<ClientProfile> {
     super.initState();
 
     ///`For Designing UI`
-    clientData = Client(
-      name: "Md. Yeasin Sheikh",
-      email: "yeasinSheikh5@gmail.com",
-      phone: "+880175469898",
-      address: "Manikganj Sadar, Dhaka ",
-      imagePath: "Image",
-      balance: 1002 + 30,
-    );
+    clientData = dummyData[dummyData.length - 1];
   }
 
   @override
@@ -42,9 +37,11 @@ class _ClientProfileState extends State<ClientProfile> {
     final provider = Provider.of<ClientProvider>(context);
     index = ModalRoute.of(context)!.settings.arguments as int;
     if (index != null) clientData = provider.clients[index];
+
+    ///change user
     provider.currentUser = clientData;
     //generate dummy list
-    provider.generateDummyData();
+    // provider.generateDummyData();
   }
 
   @override
@@ -193,7 +190,8 @@ class _ClientProfileState extends State<ClientProfile> {
                     Icons.arrow_back,
                     color: Colors.red,
                   ),
-                  onTap: () => Navigator.pop(context),
+                  onTap: () => Navigator.of(context)
+                      .pushReplacementNamed(ClientsOverviewScreen.routeName),
                 ),
               ),
             Positioned(
@@ -209,10 +207,15 @@ class _ClientProfileState extends State<ClientProfile> {
                     Container(
                       child: CircleAvatar(
                         radius: logoRadious,
-                        child: Icon(
-                          Icons.person,
-                          size: logoRadious,
-                        ),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(180),
+                            child: Hero(
+                              tag: "rowItem$index",
+                              child: Image.asset(
+                                clientData.imagePath,
+                                fit: BoxFit.cover,
+                              ),
+                            )),
                       ),
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -255,7 +258,7 @@ class _ClientProfileState extends State<ClientProfile> {
 
       ///`EOF Header`
       ///DONE:: Balance ,
-      CurrentBalanceBar(clientData.balance!),
+      CurrentBalanceBar(clientData.balance),
 
       ///Done:: send money, transactionList,// we will make build method with containter size
       // Expanded(
@@ -269,6 +272,7 @@ class _ClientProfileState extends State<ClientProfile> {
       //     physics: BouncingScrollPhysics(),
       //   ),
       // ),
+
       Expanded(
         child: Padding(
           padding: const EdgeInsets.all(24.0),

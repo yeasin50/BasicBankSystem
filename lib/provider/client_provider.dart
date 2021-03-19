@@ -1,14 +1,18 @@
 import 'package:bank_app_social/models/client.dart';
 import 'package:flutter/cupertino.dart';
 
-class ClientProvider with ChangeNotifier {
-  late Client _currentUser;
+import 'dummy_data.dart';
 
-  List<Client>? _clients = [];
+class ClientProvider with ChangeNotifier {
+  Client _currentUser = dummyData[dummyData.length - 1];
+
+  List<Client> _clients = dummyData;
+
+  Client get currentUser => _currentUser;
 
   get clients => _clients;
 
-  get totalClient => _clients?.length;
+  get totalClient => _clients.length;
 
   set currentUser(Client user) {
     _currentUser = user;
@@ -16,36 +20,42 @@ class ClientProvider with ChangeNotifier {
   }
 
   addClient(Client client) async {
-    _clients!.add(client);
+    _clients.add(client);
     notifyListeners();
   }
 
-  Future<List<String>> getClientNames() async {
-    List<String> names = [];
-    _clients!.forEach((element) {
-      names.add(element.name);
+  Client getReceiver(String name) {
+    late Client r;
+    _clients.forEach((element) {
+      if (element.name == name) r = element;
     });
+    return r;
+  }
+
+  String getImagePath(String name) {
+    String path = '';
+    _clients.forEach((element) {
+      if (element.name == name) path = element.imagePath;
+    });
+    return path;
+  }
+
+  List<String> getClientNames() {
+    List<String> names = [];
+    _clients.forEach((element) {
+      if (element.name != _currentUser.name) names.add(element.name);
+    });
+    // names.remove(_currentUser.name);
     return names;
   }
 
   /// `initialzied Dummy Data as Test`
   ///`Dummy data for Ui Test`
   Future<void> generateDummyData() async {
-    for (int i = 0; i < 10; i++) {
-      Client c = Client(
-        name: "yeasin $i",
-        email: "yeasinSheikh5$i@gmail.com",
-        phone: "+88017${i}5469898",
-        address: "Manikganj Sadar, Dhaka $i",
-        imagePath: "Image",
-        balance: i * 100 + 30,
-      );
-      _clients?.add(c);
-      notifyListeners();
-    }
+    ///dont need it now
   }
 
-  Future<bool> transacte(Client receiver, double amount) async {
+  bool transacte(Client receiver, double amount) {
     if (_currentUser.balance >= amount) {
       _currentUser.balance -= amount;
       receiver.balance += amount;

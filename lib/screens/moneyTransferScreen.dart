@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bank_app_social/models/client.dart';
 import 'package:bank_app_social/provider/client_provider.dart';
 import 'package:bank_app_social/widgets/appBar.dart';
 import 'package:bank_app_social/widgets/transaction_overview.dart';
@@ -21,23 +22,26 @@ class _TransactionScreenState extends State<TransactionScreen> {
   late List<StepState> _listState;
 
   //amount
-  TextEditingController amountController = TextEditingController();
+  late TextEditingController amountController;
+  late TextEditingController nameController;
 
   // GlobalKey<AutoCompleteTextFieldState<String>> _keyNameField = new GlobalKey();
   String currentText = "";
   String? selectedName = "";
+  late final clientProvider;
 
   ///TODO:: use provider to get clientNames
-  var suggetionNames = [
-    "Yeasom",
-    "Sheikg",
-    "AAAAA",
-    "Asd",
-    "ABS",
-  ];
+  late List<String> suggetionNames;
+
+  /// temp
+  double amount = 0;
+  String receiverName = "";
+  late Client sender, receiver;
 
   @override
   void initState() {
+    amountController = new TextEditingController();
+    nameController = new TextEditingController();
     _current = 0;
     _listState = [
       StepState.indexed,
@@ -46,6 +50,25 @@ class _TransactionScreenState extends State<TransactionScreen> {
       StepState.error
     ];
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    clientProvider = Provider.of<ClientProvider>(
+      context,
+    );
+    suggetionNames = clientProvider.getClientNames();
+    sender = clientProvider.currentUser;
+    receiver = sender;
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    amountController.dispose();
+    super.dispose();
   }
 
   StepState nameStepState() {
@@ -80,13 +103,17 @@ class _TransactionScreenState extends State<TransactionScreen> {
                         : "Invalid user"),
             // suggestionsHeight: 200.0,
             maxSuggestions: 10,
-            itemBuilder: (context, item) => Padding(
+            itemBuilder: (context, name) => Padding(
               padding: EdgeInsets.all(8.0),
               child: ListTile(
-                  leading: CircleAvatar(
-                    child: Icon(Icons.person),
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(180),
+                    child: Image.asset(
+                      clientProvider.getImagePath(name!),
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  title: Text(item!)),
+                  title: Text(name)),
             ),
             onSearch: (String search) async => suggetionNames
                 .where(
@@ -126,9 +153,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 : _listState[0],
         title: const Text('Procced'),
         content: TransactionConfOverview(
-          sendername: "Yeasin",
-          receiverName: "Sheikh",
-          amount: 123123,
+          sender: sender,
+          receiver: receiver,
+          amount: amount,
         ),
         isActive: true,
       ),
@@ -136,14 +163,15 @@ class _TransactionScreenState extends State<TransactionScreen> {
     return _steps;
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
   ///`Send Money`
   sendMoney() async {
-    log("make transaction happen");
+    print("make transaction happen");
+    print(receiver.name);
+    print(sender.name);
+    print("receiver from field: $receiverName");
+    bool success = clientProvider.transacte(receiver, amount);
+
+    if (success) Navigator.of(context).pop();
     // Provider.of<ClientProvider>(context)
     //     .transacte(, amountController.text as double);
   }
@@ -175,6 +203,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 }
                 setState(() {
                   _current--;
+                  receiverName = selectedName!;
+                  if (receiverName != null) {
+                    receiver = clientProvider.getReceiver(receiverName);
+                  }
+                  var text = amountController.text.trim();
+                  if (double.tryParse(text) != null)
+                    amount = double.tryParse(text)!;
                 });
               },
               onStepContinue: () {
@@ -189,6 +224,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 }
                 setState(() {
                   _current++;
+                  receiverName = selectedName!;
+                  if (receiverName != null) {
+                    receiver = clientProvider.getReceiver(receiverName);
+                  }
+                  var text = amountController.text.trim();
+                  if (double.tryParse(text) != null)
+                    amount = double.tryParse(text)!;
                 });
               },
               onStepTapped: (index) {
@@ -197,13 +239,24 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 }
                 setState(() {
                   _current = index;
+                  receiverName = selectedName!;
+                  if (receiverName != null) {
+                    receiver = clientProvider.getReceiver(receiverName);
+                  }
+                  var text = amountController.text.trim();
+                  if (double.tryParse(text) != null)
+                    amount = double.tryParse(text)!;
                 });
               },
               controlsBuilder: (context, {onStepCancel, onStepContinue}) => Row(
                 children: [
                   FlatButton(
                     onPressed: onStepContinue,
-                    child: Text("Continue"),
+                    child: _current == 2
+                        ? Text(
+                            "Procced",
+                          )
+                        : Text("Continue"),
                   ),
                   _current == 0
                       ? SizedBox()

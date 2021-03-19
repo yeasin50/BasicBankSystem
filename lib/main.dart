@@ -7,8 +7,10 @@ import 'package:bank_app_social/widgets/transaction_overview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'provider/dummy_data.dart';
 import 'screens/homeScreen.dart';
 import 'screens/dash_rive.dart';
+import 'screens/imageTest.dart';
 import 'widgets/authForm.dart';
 
 void main() {

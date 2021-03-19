@@ -19,9 +19,16 @@ class ClientRow extends StatelessWidget {
             Navigator.of(context)
                 .pushNamed(ClientProfile.routeName, arguments: index);
           },
-          leading: CircleAvatar(
-            child: Icon(Icons.person),
-          ),
+          leading: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Hero(
+                tag: "rowItem" + index.toString(),
+                child: Image.asset(
+                  value.clients[index]!.imagePath,
+                  fit: BoxFit.cover,
+                ),
+              )),
+
           title: Text(value.clients[index]!.name),
           // subtitle: Text(value.clients[index]!.phone),
           trailing: Text(""),

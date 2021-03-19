@@ -20,9 +20,6 @@ class _ClientsOverviewScreenState extends State<ClientsOverviewScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      Provider.of<ClientProvider>(context, listen: false).generateDummyData();
-    });
   }
 
   @override

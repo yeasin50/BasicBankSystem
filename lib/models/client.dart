@@ -1,6 +1,6 @@
 /// we can set `email` or `phone` as id
 class Client {
-  final String name;
+  late final String name;
   final String email;
   final String phone;
   final String address;
@@ -10,13 +10,13 @@ class Client {
   DateTime? accCreated = DateTime.now();
 
   double balance;
-  String? imagePath;
+  String imagePath;
   Client(
       {required this.name,
       required this.email,
       required this.phone,
       required this.address,
-      required this.imagePath,
+      this.imagePath = "",
       this.balance = 0,
       this.accCreated});
 }

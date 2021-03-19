@@ -1,14 +1,16 @@
 import 'package:bank_app_social/configs/size.dart';
+import 'package:bank_app_social/models/client.dart';
+import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class TransactionConfOverview extends StatelessWidget {
-  final String sendername, receiverName;
+  final Client sender, receiver;
   final double amount;
 
   TransactionConfOverview({
-    required this.sendername,
-    required this.receiverName,
+    required this.sender,
+    required this.receiver,
     required this.amount,
   });
 
@@ -48,50 +50,79 @@ class TransactionConfOverview extends StatelessWidget {
             ),
           ),
 
+          ///sender
           Positioned(
             left: width * .01,
             child: Column(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.orange,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.green,
-                      style: BorderStyle.solid,
-                    ),
-                  ),
-                  child: Icon(
-                    Icons.person,
-                    size: width * .13,
-                  ),
-                ),
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(180),
+                    child: Image.asset(
+                      sender.imagePath,
+                      fit: BoxFit.fill,
+                      height: width * .13,
+                      // width: 140,
+                    )),
                 FittedBox(
                     child: Text(
-                  sendername,
+                  sender.name,
+                  style: TextStyle(
+                    background: Paint()
+                      ..color = Colors.white.withOpacity(.5)
+                      ..strokeWidth = 17
+                      ..style = PaintingStyle.fill,
+                    fontSize: Theme.of(context).textTheme.headline6!.fontSize,
+                  ),
                 )),
               ],
             ),
           ),
+          //money
           Positioned(
             left: 0,
             right: 0,
             child: Column(
               children: [
-                Icon(Icons.ac_unit),
+               
                 FittedBox(
-                  child: Text(amount.toString()),
+                  child: EasyRichText(
+                    "send ${amount.toString()} to",
+
+                    patternList: [
+                      EasyRichTextPattern(
+                        targetString: amount.toString(),
+                        style: TextStyle(
+                          backgroundColor: Colors.white.withOpacity(.5),
+                          fontSize:
+                              Theme.of(context).textTheme.headline4!.fontSize,
+                        ),
+                        matchWordBoundaries: false,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
+          //receiver
           Positioned(
             right: width * .01,
             child: Column(
               children: [
-                Icon(Icons.ac_unit),
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(180),
+                    child: Image.asset(
+                      receiver.imagePath,
+                      fit: BoxFit.fill,
+                      height: width * .13,
+                      // width: 140,
+                    )),
                 Text(
-                  receiverName,
+                  receiver.name,
+                  style: TextStyle(
+                    backgroundColor: Colors.white.withOpacity(.5),
+                    fontSize: Theme.of(context).textTheme.headline6!.fontSize,
+                  ),
                 ),
               ],
             ),
