@@ -9,7 +9,7 @@ class Client {
 // because constructor default value must be constans
   DateTime? accCreated = DateTime.now();
 
-  double? balance;
+  double balance;
   String? imagePath;
   Client(
       {required this.name,

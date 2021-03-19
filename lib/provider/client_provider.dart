@@ -2,11 +2,18 @@ import 'package:bank_app_social/models/client.dart';
 import 'package:flutter/cupertino.dart';
 
 class ClientProvider with ChangeNotifier {
+  late Client _currentUser;
+
   List<Client>? _clients = [];
 
   get clients => _clients;
 
   get totalClient => _clients?.length;
+
+  set currentUser(Client user) {
+    _currentUser = user;
+    notifyListeners();
+  }
 
   addClient(Client client) async {
     _clients!.add(client);
@@ -36,5 +43,15 @@ class ClientProvider with ChangeNotifier {
       _clients?.add(c);
       notifyListeners();
     }
+  }
+
+  Future<bool> transacte(Client receiver, double amount) async {
+    if (_currentUser.balance >= amount) {
+      _currentUser.balance -= amount;
+      receiver.balance += amount;
+      notifyListeners();
+      return true;
+    }
+    return false;
   }
 }

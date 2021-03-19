@@ -1,6 +1,6 @@
-import 'dart:developer';
-
+import 'dart:async';
 import 'package:bank_app_social/provider/anim_provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,26 +12,41 @@ class AuthForm extends StatefulWidget {
 class _AuthFormState extends State<AuthForm> {
   final _formKey = GlobalKey<FormState>();
 
-  String _userName = '';
-  String _password = '';
-
-  dynamic __passValidator(value) {
-    if (value!.length <= 4) {
-      return 'minimum 4 charecter long';
-    }
-    return null;
-  }
+  late TextEditingController _nameController, _passController;
 
   _trySubmit() {
-    final provider = Provider.of<DashProvider>(context, listen: false);
+    // final isValid = _formKey.currentState!.validate();
 
+    // if (isValid) {
+    //   print("$isValid");
+    // }
+
+    final provider = Provider.of<DashProvider>(context, listen: false);
     // ///add happy and sad animation here
-    print("user : $_userName pass: $_password");
-    if (_userName == "yeasin" && _password == "1234") {
+    // print("user : ${_nameController.text} pass: ${_passController.text}");
+
+    if (_nameController.text == "yeasin" && _passController.text == "1234") {
       provider.dashState(DashState.happy);
+      Timer(Duration(seconds: 3), () {
+        print("navigate to HomeScreen");
+      });
     } else {
       provider.dashState(DashState.sad);
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController();
+    _passController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _passController.dispose();
+    super.dispose();
   }
 
   @override
@@ -47,6 +62,9 @@ class _AuthFormState extends State<AuthForm> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextFormField(
+                  cursorColor: Colors.pink,
+                  style: TextStyle(),
+                  controller: _nameController,
                   onTap: () {
                     // print("Play onUnserName Animation\n");
                     data.dashState(DashState.onType);
@@ -60,31 +78,56 @@ class _AuthFormState extends State<AuthForm> {
                     return null;
                   },
                   decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(15),
+                    prefixIcon: Icon(Icons.person),
+                    border: InputBorder.none,
+                    fillColor: Colors.white,
+                    filled: true,
                     hintText: "try yeasin",
                   ),
-                  onSaved: (newValue) => _userName = newValue!,
+                ),
+                SizedBox(
+                  height: 5,
                 ),
                 TextFormField(
+                  cursorColor: Colors.green,
+                  controller: _passController,
                   key: ValueKey('password'),
                   onTap: () {
                     data.dashState(DashState.onPassword);
                   },
-                  validator: (value) => __passValidator(value),
+                  validator: (value) {
+                    if (value!.length >= 4)
+                      return null;
+                    else
+                      return "password";
+                  },
                   decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(15),
+                    prefixIcon: Icon(Icons.keyboard_hide),
+                    border: InputBorder.none,
+                    fillColor: Colors.white,
+                    filled: true,
                     hintText: '1234',
                   ),
                   obscureText: true,
-                  onSaved: (newValue) {
-                    _password = newValue!;
-                  },
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
+                //TODO;; fixe for web
                 SizedBox(
-                  width: double.infinity,
+                  width: kIsWeb ? 300 : 200,
                   child: OutlineButton(
-                    child: Text("Login"),
+                    child: Text(
+                      "Login",
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                        fontSize:
+                            Theme.of(context).textTheme.headline3!.fontSize,
+                      ),
+                    ),
                     onPressed: _trySubmit,
                   ),
                 ),

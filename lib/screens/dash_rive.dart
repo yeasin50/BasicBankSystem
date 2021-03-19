@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
-
+import 'package:bank_app_social/configs/size.dart';
 import 'package:bank_app_social/provider/anim_provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -148,22 +149,20 @@ class _RiveCharState extends State<RiveChar>
     }
   }
 
+  ///FIXME:: there is little startUp error
   @override
   Widget build(BuildContext context) {
     return Consumer<DashProvider>(builder: (_, state, __) {
       if (state.state != state.prevState) {
-        print("Change occurs");
+        // print("Change occurs");
         _changeState(state.state, state.prevState);
       }
-      return Container(
-        height: 220,
-        child: _riveArtboard == null
-            ? SizedBox()
-            : AspectRatio(
-                aspectRatio: 1,
-                child: Rive(artboard: _riveArtboard),
-              ),
-      );
+      return _riveArtboard == null
+          ? SizedBox()
+          : AspectRatio(
+              aspectRatio: 1,
+              child: Rive(artboard: _riveArtboard),
+            );
     });
   }
 

@@ -52,6 +52,16 @@ $ flutter run --no-sound-null-safety
 Rive2 doesnt have many things like flare/rive. we need make reverse method. also contrains doesnt support on rive2 -_-
 
 
+
+
+Colors 
+#18D191​  
+#FC6A7F​  
+#FFCE56​  
+#45E0EC​  
+#4364A1​ facebook  
+#DF513B​ google  
+
 ## Getting Started
 while flutter v2 support web on stable channel, we will use stable channel, for window,linux+.. use beta and read doc
 

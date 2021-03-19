@@ -18,12 +18,20 @@ class MyAppBar extends StatelessWidget {
         horizontal: getProportionateScreenWidth(20),
         vertical: getProportionateScreenHeight(20),
       ),
-      child: Text(
-        this.title,
-        style: TextStyle(
-          fontSize: Theme.of(context).textTheme.headline4!.fontSize,
-          color: themeData(context).cardTheme.color
-        ),
+      child: Row(
+        children: [
+          ///temp
+          IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          Text(
+            this.title,
+            style: TextStyle(
+                fontSize: Theme.of(context).textTheme.headline4!.fontSize,
+                color: themeData(context).cardTheme.color),
+          ),
+        ],
       ),
     );
   }

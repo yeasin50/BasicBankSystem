@@ -19,6 +19,7 @@ class ClientProfile extends StatefulWidget {
 
 class _ClientProfileState extends State<ClientProfile> {
   late Client clientData;
+  late int index;
 
   @override
   void initState() {
@@ -38,8 +39,12 @@ class _ClientProfileState extends State<ClientProfile> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // int index = ModalRoute.of(context)!.settings.arguments as int;
-    // clientData = Provider.of<ClientProvider>(context).clients[index];
+    final provider = Provider.of<ClientProvider>(context);
+    index = ModalRoute.of(context)!.settings.arguments as int;
+    if (index != null) clientData = provider.clients[index];
+    provider.currentUser = clientData;
+    //generate dummy list
+    provider.generateDummyData();
   }
 
   @override
@@ -71,8 +76,8 @@ class _ClientProfileState extends State<ClientProfile> {
             // width: cartSize * .7,
             radius: cartSize * .4,
             child: Icon(
-              Icons.person,
-              color: Colors.yellow,
+              Icons.send,
+              size: cartSize * .4,
             ),
           )),
       CardItem(
@@ -80,42 +85,60 @@ class _ClientProfileState extends State<ClientProfile> {
           text: "Users",
           logo: CircleAvatar(
             radius: cartSize * .4,
-            child: Icon(Icons.person),
+            child: Icon(
+              Icons.people,
+              size: cartSize * .4,
+            ),
           )),
       CardItem(
           size: cartSize,
           text: "Payment",
           logo: CircleAvatar(
             radius: cartSize * .4,
-            child: Icon(Icons.person),
+            child: Icon(
+              Icons.payment,
+              size: cartSize * .4,
+            ),
           )),
       CardItem(
           size: cartSize,
           text: "Recharge",
           logo: CircleAvatar(
             radius: cartSize * .4,
-            child: Icon(Icons.person),
+            child: Icon(
+              Icons.phone,
+              size: cartSize * .4,
+            ),
           )),
       CardItem(
           size: cartSize,
           text: "Cash Out",
           logo: CircleAvatar(
             radius: cartSize * .4,
-            child: Icon(Icons.person),
+            child: Icon(
+              Icons.local_atm,
+              size: cartSize * .4,
+            ),
           )),
       CardItem(
           size: cartSize,
           text: "Reset Account",
           logo: CircleAvatar(
             radius: cartSize * .4,
-            child: Icon(Icons.person),
+            child: Icon(
+              Icons.build_rounded,
+              size: cartSize * .4,
+            ),
           )),
       CardItem(
           size: cartSize,
-          text: "help",
+          text: "Help",
           logo: CircleAvatar(
             radius: cartSize * .4,
-            child: Icon(Icons.person),
+            child: Icon(
+              Icons.support_agent_outlined,
+              size: cartSize * .4,
+            ),
           )),
     ];
 
@@ -161,21 +184,18 @@ class _ClientProfileState extends State<ClientProfile> {
         width: SizeConfig.screenWidth,
         child: Stack(
           children: <Widget>[
-            Positioned(
-              left: 10,
-              top: 30,
-              child: InkWell(
-                child: Icon(
-                  Icons.arrow_back,
-                  color: Colors.red,
+            if (index != null)
+              Positioned(
+                left: 10,
+                top: 30,
+                child: InkWell(
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.red,
+                  ),
+                  onTap: () => Navigator.pop(context),
                 ),
-                // onTap: () => Navigator.pop(context),
-                onTap: () {
-                  print(2 * 3);
-                  log("Tapped ");
-                },
               ),
-            ),
             Positioned(
               left: 0,
               right: 0,

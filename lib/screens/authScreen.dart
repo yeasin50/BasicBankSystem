@@ -1,6 +1,8 @@
+import 'package:bank_app_social/configs/size.dart';
 import 'package:bank_app_social/provider/anim_provider.dart';
 import 'package:bank_app_social/screens/dash_rive.dart';
 import 'package:bank_app_social/widgets/authForm.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +16,16 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    var width = SizeConfig.screenWidth!;
+    var height = SizeConfig.screenHeight!;
+
+    //#41616E bg
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+
+      ///TODO:: fix bg COlor
+
       body: Consumer<DashProvider>(
         builder: (context, data, __) => GestureDetector(
           behavior: HitTestBehavior.opaque,
@@ -27,41 +38,27 @@ class _AuthScreenState extends State<AuthScreen> {
               data.dashState(DashState.idle);
             }
           },
-          child: Column(
+          child: Stack(
             children: [
-              RiveChar(),
-              AuthForm(),
-              // RaisedButton(
-              //   onPressed: () {
-              //     data.dashState(DashState.onType);
-              //   },
-              //   child: Text("Username"),
-              // ),
-              // RaisedButton(
-              //   onPressed: () {
-              //     data.dashState(DashState.onPassword);
-              //   },
-              //   child: Text("passWord"),
-              // ),
-              // RaisedButton(
-              //   onPressed: () {
-              //     data.dashState(DashState.idle);
-              //   },
-              //   child: Text("TOidle"),
-              // ),
-
-              // RaisedButton(
-              //   onPressed: () {
-              //     data.dashState(DashState.happy);
-              //   },
-              //   child: Text("Happy"),
-              // ),
-              // RaisedButton(
-              //   onPressed: () {
-              //     data.dashState(DashState.sad);
-              //   },
-              //   child: Text("sad"),
-              // ),
+              Positioned(
+                top: getProportionateScreenHeight(20),
+                left: 0,
+                right: 0,
+                child: SizedBox(
+                  height: kIsWeb ? height : height * .4,
+                  width: kIsWeb ? width : width * .8,
+                  child: RiveChar(),
+                ),
+              ),
+              Positioned(
+                top: kIsWeb ? 0 : height * .35,
+                left: 0,
+                right: 0,
+                child: SizedBox(
+                  width: kIsWeb ? width * 4 : width,
+                  child: AuthForm(),
+                ),
+              ),
             ],
           ),
         ),

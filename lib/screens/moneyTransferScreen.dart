@@ -144,6 +144,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
   ///`Send Money`
   sendMoney() async {
     log("make transaction happen");
+    // Provider.of<ClientProvider>(context)
+    //     .transacte(, amountController.text as double);
   }
 
   @override
@@ -154,7 +156,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
           if (kIsWeb) MyAppBar("Transaction Center"),
           if (!kIsWeb)
             AppBar(
-              title: Text("Transaction Center"),
+              title: Text(
+                "Transaction Center",
+              ),
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
             ),
           Expanded(
             child: Stepper(
