@@ -152,7 +152,7 @@ class _AuthFormState extends State<AuthForm> {
                         ? width > 400
                             ? 200
                             : width
-                        : width,
+                        : 200,
                     child: Text(
                       "Login",
                       textAlign: TextAlign.center,
@@ -174,6 +174,7 @@ class _AuthFormState extends State<AuthForm> {
                 SizedBox(
                   height: 12,
                 ),
+                //facebook google 
                 Container(
                   margin: EdgeInsets.symmetric(
                     horizontal: 20,

@@ -12,6 +12,7 @@ import 'package:bank_app_social/widgets/currentBalance.dart';
 import 'package:bank_app_social/widgets/particles_bg.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class ClientProfile extends StatefulWidget {
@@ -48,13 +49,14 @@ class _ClientProfileState extends State<ClientProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black87,
-      body: Stack(
-        children: [
-          ParticlesBackground(),
-          buildBody(context),
-        ],
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            ParticlesBackground(),
+            buildBody(context),
+          ],
+        ),
       ),
     );
   }
@@ -203,7 +205,7 @@ class _ClientProfileState extends State<ClientProfile> {
             Positioned(
               left: 0,
               right: 0,
-              top: height * .009,
+              top: 20,
               child: Container(
                 alignment: Alignment.bottomCenter,
                 // color: Colors.grey,
@@ -214,8 +216,13 @@ class _ClientProfileState extends State<ClientProfile> {
                       width: kIsWeb
                           ? width > 400
                               ? 200
-                              : width
-                          : logoRadious,
+                              : 100
+                          : width * .4,
+                      height: kIsWeb
+                          ? height > 400
+                              ? 200
+                              : 200
+                          : width * .4,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(180),
                         child: Hero(
@@ -260,22 +267,6 @@ class _ClientProfileState extends State<ClientProfile> {
                     ),
                     SizedBox(
                       height: logoRadious * .1,
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        color: Colors.white.withOpacity(.9),
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: Text(
-                        clientData.phone,
-                        style: TextStyle(
-                            fontSize: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .fontSize),
-                      ),
                     ),
                   ],
                 ),

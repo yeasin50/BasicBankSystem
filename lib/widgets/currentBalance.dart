@@ -29,8 +29,8 @@ class CurrentBalanceBar extends StatelessWidget {
               tileMode: TileMode.clamp),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withAlpha(12),
-              offset: new Offset(20.0, 10.0),
+              color: Colors.white.withOpacity(.9),
+              offset: new Offset(2.0, 4.0),
             )
           ],
         ),

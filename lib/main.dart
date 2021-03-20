@@ -6,6 +6,7 @@ import 'package:bank_app_social/screens/client_profile.dart';
 import 'package:bank_app_social/screens/moneyTransferScreen.dart';
 import 'package:bank_app_social/widgets/transaction_overview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'provider/dummy_data.dart';
@@ -56,12 +57,17 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Stack(
-        children: [
-          ParticlesBackground(),
-          AuthScreen(),
-        ],
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.blue.withOpacity(.5),
+      ),
+      child: SafeArea(
+        child: Stack(
+          children: [
+            ClientProfile(),
+            // AuthScreen(),
+          ],
+        ),
       ),
     );
   }

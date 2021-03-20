@@ -20,7 +20,7 @@ class _AuthScreenState extends State<AuthScreen> {
     var width = SizeConfig.screenWidth!;
     var height = SizeConfig.screenHeight!;
 
-    print("width  $width");
+    // print("width  $width");
 
     //#41616E bg
     return Scaffold(
@@ -42,23 +42,35 @@ class _AuthScreenState extends State<AuthScreen> {
           },
           child: Stack(
             children: [
-              Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                child: SizedBox(
-                  height: kIsWeb ? height : height * .4,
-                  width: kIsWeb ? width : width * .8,
-                  child: RiveChar(),
-                ),
-              ),
-              if (!kIsWeb)
+              if (kIsWeb)
                 Positioned(
-                  top: height * .35,
+                  top: 0,
                   left: 0,
                   right: 0,
                   child: SizedBox(
-                    width: kIsWeb ? width * 4 : width,
+                    height: height,
+                    width: width,
+                    child: RiveChar(),
+                  ),
+                ),
+              if (!kIsWeb)
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: SizedBox(
+                    height: height * .4,
+                    width: width * .8,
+                    child: RiveChar(),
+                  ),
+                ),
+              if (!kIsWeb)
+                Positioned(
+                  top:  height * .4,
+                  left: 0,
+                  right: 0,
+                  child: SizedBox(
+                    width: width,
                     child: AuthForm(),
                   ),
                 ),

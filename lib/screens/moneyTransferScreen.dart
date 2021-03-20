@@ -165,10 +165,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
   ///`Send Money`
   sendMoney() async {
-    print("make transaction happen");
-    print(receiver.name);
-    print(sender.name);
-    print("receiver from field: $receiverName");
+    // print("make transaction happen");
+    // print(receiver.name);
+    // print(sender.name);
+    // print("receiver from field: $receiverName");
     bool success = clientProvider.transacte(receiver, amount);
 
     if (success) Navigator.of(context).pop();
@@ -179,97 +179,101 @@ class _TransactionScreenState extends State<TransactionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          if (kIsWeb) MyAppBar("Transaction Center"),
-          if (!kIsWeb)
-            AppBar(
-              title: Text(
-                "Transaction Center",
-              ),
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
+      body: buildBody(context),
+    );
+  }
+
+  Column buildBody(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        if (kIsWeb) MyAppBar("Transaction Center"),
+        if (!kIsWeb)
+          AppBar(
+            title: Text(
+              "Transaction Center",
             ),
-          Expanded(
-            child: Stepper(
-              physics: ClampingScrollPhysics(),
-              currentStep: _current,
-              steps: _createSteps(context),
-              onStepCancel: () {
-                if (_current <= 0) {
-                  return;
-                }
-                setState(() {
-                  _current--;
-                  receiverName = selectedName!;
-                  if (receiverName != null) {
-                    receiver = clientProvider.getReceiver(receiverName);
-                  }
-                  var text = amountController.text.trim();
-                  if (double.tryParse(text) != null)
-                    amount = double.tryParse(text)!;
-                });
-              },
-              onStepContinue: () {
-                // log(transactionSteps.length.toString());
-                // log("current step : $_currentStep");
-                ///why -2? because if we look close enough about stateChanges , we can find it changes after click
-                if (_current == 2) sendMoney();
-                if (_current > _steps.length - 2 ||
-                    !suggetionNames.contains(selectedName)) {
-                  // make transaction from here
-                  return;
-                }
-                setState(() {
-                  _current++;
-                  receiverName = selectedName!;
-                  if (receiverName != null) {
-                    receiver = clientProvider.getReceiver(receiverName);
-                  }
-                  var text = amountController.text.trim();
-                  if (double.tryParse(text) != null)
-                    amount = double.tryParse(text)!;
-                });
-              },
-              onStepTapped: (index) {
-                if (!suggetionNames.contains(selectedName)) {
-                  return;
-                }
-                setState(() {
-                  _current = index;
-                  receiverName = selectedName!;
-                  if (receiverName != null) {
-                    receiver = clientProvider.getReceiver(receiverName);
-                  }
-                  var text = amountController.text.trim();
-                  if (double.tryParse(text) != null)
-                    amount = double.tryParse(text)!;
-                });
-              },
-              controlsBuilder: (context, {onStepCancel, onStepContinue}) => Row(
-                children: [
-                  FlatButton(
-                    onPressed: onStepContinue,
-                    child: _current == 2
-                        ? Text(
-                            "Procced",
-                          )
-                        : Text("Continue"),
-                  ),
-                  _current == 0
-                      ? SizedBox()
-                      : FlatButton(
-                          onPressed: onStepCancel,
-                          child: Text("Previous"),
-                        ),
-                ],
-              ),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () => Navigator.of(context).pop(),
             ),
-          )
-        ],
-      ),
+          ),
+        Expanded(
+          child: Stepper(
+            physics: ClampingScrollPhysics(),
+            currentStep: _current,
+            steps: _createSteps(context),
+            onStepCancel: () {
+              if (_current <= 0) {
+                return;
+              }
+              setState(() {
+                _current--;
+                receiverName = selectedName!;
+                if (receiverName != null) {
+                  receiver = clientProvider.getReceiver(receiverName);
+                }
+                var text = amountController.text.trim();
+                if (double.tryParse(text) != null)
+                  amount = double.tryParse(text)!;
+              });
+            },
+            onStepContinue: () {
+              // log(transactionSteps.length.toString());
+              // log("current step : $_currentStep");
+              ///why -2? because if we look close enough about stateChanges , we can find it changes after click
+              if (_current == 2) sendMoney();
+              if (_current > _steps.length - 2 ||
+                  !suggetionNames.contains(selectedName)) {
+                // make transaction from here
+                return;
+              }
+              setState(() {
+                _current++;
+                receiverName = selectedName!;
+                if (receiverName != null) {
+                  receiver = clientProvider.getReceiver(receiverName);
+                }
+                var text = amountController.text.trim();
+                if (double.tryParse(text) != null)
+                  amount = double.tryParse(text)!;
+              });
+            },
+            onStepTapped: (index) {
+              if (!suggetionNames.contains(selectedName)) {
+                return;
+              }
+              setState(() {
+                _current = index;
+                receiverName = selectedName!;
+                if (receiverName != null) {
+                  receiver = clientProvider.getReceiver(receiverName);
+                }
+                var text = amountController.text.trim();
+                if (double.tryParse(text) != null)
+                  amount = double.tryParse(text)!;
+              });
+            },
+            controlsBuilder: (context, {onStepCancel, onStepContinue}) => Row(
+              children: [
+                FlatButton(
+                  onPressed: onStepContinue,
+                  child: _current == 2
+                      ? Text(
+                          "Procced",
+                        )
+                      : Text("Continue"),
+                ),
+                _current == 0
+                    ? SizedBox()
+                    : FlatButton(
+                        onPressed: onStepCancel,
+                        child: Text("Previous"),
+                      ),
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 }
