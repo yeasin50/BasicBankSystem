@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:bank_app_social/configs/size.dart';
 import 'package:bank_app_social/provider/anim_provider.dart';
+import 'package:bank_app_social/screens/client_profile.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +30,8 @@ class _AuthFormState extends State<AuthForm> {
     if (_nameController.text == "yeasin" && _passController.text == "1234") {
       provider.dashState(DashState.happy);
       Timer(Duration(seconds: 3), () {
-        print("navigate to HomeScreen");
+        // print("navigate to HomeScreen");
+        Navigator.pushReplacementNamed(context, ClientProfile.routeName);
       });
     } else {
       provider.dashState(DashState.sad);
@@ -51,6 +54,9 @@ class _AuthFormState extends State<AuthForm> {
 
   @override
   Widget build(BuildContext context) {
+    var width = SizeConfig.screenWidth!;
+    var height = SizeConfig.screenHeight!;
+
     return Consumer<DashProvider>(
       builder: (_, data, __) => Center(
         child: Container(
@@ -59,77 +65,111 @@ class _AuthFormState extends State<AuthForm> {
           child: Form(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
+              // mainAxisSize: MainAxisSize.min,
               children: [
-                TextFormField(
-                  cursorColor: Colors.pink,
-                  style: TextStyle(),
-                  controller: _nameController,
-                  onTap: () {
-                    // print("Play onUnserName Animation\n");
-                    data.dashState(DashState.onType);
-                  },
-                  autocorrect: false,
-                  textCapitalization: TextCapitalization.none,
-                  enableSuggestions: false,
-                  key: ValueKey("userName"),
-                  validator: (value) {
-                    if (value!.trim().isEmpty) return 'Enter your username';
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(15),
-                    prefixIcon: Icon(Icons.person),
-                    border: InputBorder.none,
-                    fillColor: Colors.white,
-                    filled: true,
-                    hintText: "try yeasin",
+                Container(
+                  width: kIsWeb
+                      ? width > 400
+                          ? 400
+                          : width
+                      : width,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: Colors.white.withOpacity(.9),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child: TextFormField(
+                    cursorColor: Colors.pink,
+                    style: TextStyle(),
+                    controller: _nameController,
+                    onTap: () {
+                      // print("Play onUnserName Animation\n");
+                      data.dashState(DashState.onType);
+                    },
+                    autocorrect: false,
+                    textCapitalization: TextCapitalization.none,
+                    enableSuggestions: false,
+                    key: ValueKey("userName"),
+                    validator: (value) {
+                      if (value!.trim().isEmpty) return 'Enter your username';
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(15),
+                      prefixIcon: Icon(Icons.person),
+                      border: InputBorder.none,
+                      // fillColor: Colors.white.withOpacity(.7),
+                      // filled: true,
+                      hintText: "try yeasin",
+                    ),
                   ),
                 ),
                 SizedBox(
                   height: 5,
                 ),
-                TextFormField(
-                  cursorColor: Colors.green,
-                  controller: _passController,
-                  key: ValueKey('password'),
-                  onTap: () {
-                    data.dashState(DashState.onPassword);
-                  },
-                  validator: (value) {
-                    if (value!.length >= 4)
-                      return null;
-                    else
-                      return "password";
-                  },
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(15),
-                    prefixIcon: Icon(Icons.keyboard_hide),
-                    border: InputBorder.none,
-                    fillColor: Colors.white,
-                    filled: true,
-                    hintText: '1234',
+                Container(
+                  width: kIsWeb
+                      ? width > 400
+                          ? 400
+                          : width
+                      : width,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: Colors.white.withOpacity(.9),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
-                  obscureText: true,
+                  child: TextFormField(
+                    cursorColor: Colors.green,
+                    controller: _passController,
+                    key: ValueKey('password'),
+                    onTap: () {
+                      data.dashState(DashState.onPassword);
+                    },
+                    validator: (value) {
+                      if (value!.length >= 4)
+                        return null;
+                      else
+                        return "password";
+                    },
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(15),
+                      prefixIcon: Icon(Icons.keyboard_hide),
+                      border: InputBorder.none,
+                      // fillColor: Colors.white.withOpacity(.7),
+                      // filled: true,
+                      hintText: '1234',
+                    ),
+                    obscureText: true,
+                  ),
                 ),
                 SizedBox(
                   height: 15,
                 ),
                 //TODO;; fixe for web
-                SizedBox(
-                  width: kIsWeb ? 300 : 200,
-                  child: OutlineButton(
+                GestureDetector(
+                  child: Container(
+                    width: kIsWeb
+                        ? width > 400
+                            ? 200
+                            : width
+                        : width,
                     child: Text(
                       "Login",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.blue,
                         fontWeight: FontWeight.bold,
                         fontSize:
-                            Theme.of(context).textTheme.headline3!.fontSize,
+                            Theme.of(context).textTheme.headline4!.fontSize,
                       ),
                     ),
-                    onPressed: _trySubmit,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      color: Colors.white.withOpacity(.9),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
                   ),
+                  onTap: _trySubmit,
                 ),
                 SizedBox(
                   height: 12,

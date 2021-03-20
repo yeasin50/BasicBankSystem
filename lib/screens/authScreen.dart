@@ -20,12 +20,14 @@ class _AuthScreenState extends State<AuthScreen> {
     var width = SizeConfig.screenWidth!;
     var height = SizeConfig.screenHeight!;
 
+    print("width  $width");
+
     //#41616E bg
     return Scaffold(
       resizeToAvoidBottomInset: false,
 
       ///TODO:: fix bg COlor
-
+      backgroundColor: Colors.black54,
       body: Consumer<DashProvider>(
         builder: (context, data, __) => GestureDetector(
           behavior: HitTestBehavior.opaque,
@@ -41,7 +43,7 @@ class _AuthScreenState extends State<AuthScreen> {
           child: Stack(
             children: [
               Positioned(
-                top: getProportionateScreenHeight(20),
+                top: 0,
                 left: 0,
                 right: 0,
                 child: SizedBox(
@@ -50,15 +52,23 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: RiveChar(),
                 ),
               ),
-              Positioned(
-                top: kIsWeb ? 0 : height * .35,
-                left: 0,
-                right: 0,
-                child: SizedBox(
-                  width: kIsWeb ? width * 4 : width,
+              if (!kIsWeb)
+                Positioned(
+                  top: height * .35,
+                  left: 0,
+                  right: 0,
+                  child: SizedBox(
+                    width: kIsWeb ? width * 4 : width,
+                    child: AuthForm(),
+                  ),
+                ),
+              if (kIsWeb)
+                Positioned(
+                  bottom: 10,
+                  left: 0,
+                  right: 0,
                   child: AuthForm(),
                 ),
-              ),
             ],
           ),
         ),

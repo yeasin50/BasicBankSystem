@@ -9,6 +9,8 @@ import 'package:bank_app_social/screens/homeScreen.dart';
 import 'package:bank_app_social/screens/moneyTransferScreen.dart';
 import 'package:bank_app_social/widgets/card_option_item.dart';
 import 'package:bank_app_social/widgets/currentBalance.dart';
+import 'package:bank_app_social/widgets/particles_bg.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -46,9 +48,13 @@ class _ClientProfileState extends State<ClientProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: buildBody(context),
+    return Scaffold(
+      backgroundColor: Colors.black87,
+      body: Stack(
+        children: [
+          ParticlesBackground(),
+          buildBody(context),
+        ],
       ),
     );
   }
@@ -176,7 +182,7 @@ class _ClientProfileState extends State<ClientProfile> {
     return Column(children: <Widget>[
       ///``
       Container(
-        color: Colors.green,
+        // color: Colors.green,
         height: height * .3,
         width: SizeConfig.screenWidth,
         child: Stack(
@@ -197,7 +203,7 @@ class _ClientProfileState extends State<ClientProfile> {
             Positioned(
               left: 0,
               right: 0,
-              bottom: height * .009,
+              top: height * .009,
               child: Container(
                 alignment: Alignment.bottomCenter,
                 // color: Colors.grey,
@@ -205,26 +211,29 @@ class _ClientProfileState extends State<ClientProfile> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      child: CircleAvatar(
-                        radius: logoRadious,
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.circular(180),
-                            child: Hero(
-                              tag: "rowItem$index",
-                              child: Image.asset(
-                                clientData.imagePath,
-                                fit: BoxFit.cover,
-                              ),
-                            )),
+                      width: kIsWeb
+                          ? width > 400
+                              ? 200
+                              : width
+                          : logoRadious,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(180),
+                        child: Hero(
+                          tag: "rowItem$index",
+                          child: Image.asset(
+                            clientData.imagePath,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                              blurRadius: 10,
-                              color: Colors.white,
-                              spreadRadius: 5),
+                              blurRadius: 15,
+                              color: Colors.blue,
+                              spreadRadius: 10),
                         ],
                       ),
                     ),
@@ -233,20 +242,40 @@ class _ClientProfileState extends State<ClientProfile> {
                     ),
 
                     ///`Name Field`
-                    Text(
-                      clientData.name,
-                      style: TextStyle(
-                          fontSize:
-                              Theme.of(context).textTheme.headline6!.fontSize),
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        color: Colors.white.withOpacity(.9),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      child: Text(
+                        clientData.name,
+                        style: TextStyle(
+                            fontSize: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .fontSize),
+                      ),
                     ),
                     SizedBox(
-                      height: logoRadious * .040,
+                      height: logoRadious * .1,
                     ),
-                    Text(
-                      clientData.phone,
-                      style: TextStyle(
-                          fontSize:
-                              Theme.of(context).textTheme.bodyText1!.fontSize),
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        color: Colors.white.withOpacity(.9),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      child: Text(
+                        clientData.phone,
+                        style: TextStyle(
+                            fontSize: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .fontSize),
+                      ),
                     ),
                   ],
                 ),

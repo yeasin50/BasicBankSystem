@@ -1,3 +1,4 @@
+import 'package:bank_app_social/models/particle.dart';
 import 'package:bank_app_social/provider/anim_provider.dart';
 import 'package:bank_app_social/provider/client_provider.dart';
 import 'package:bank_app_social/screens/authScreen.dart';
@@ -12,6 +13,8 @@ import 'screens/homeScreen.dart';
 import 'screens/dash_rive.dart';
 import 'screens/imageTest.dart';
 import 'widgets/authForm.dart';
+import 'widgets/neon_container.dart';
+import 'widgets/particles_bg.dart';
 
 void main() {
   runApp(MyApp());
@@ -54,7 +57,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: ClientProfile(),
+      child: Stack(
+        children: [
+          ParticlesBackground(),
+          AuthScreen(),
+        ],
+      ),
     );
   }
 }

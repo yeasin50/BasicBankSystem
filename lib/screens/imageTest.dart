@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:bank_app_social/configs/size.dart';
+import 'package:bank_app_social/models/particle.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -17,11 +21,26 @@ class _ImageTestState extends State<ImageTest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      backgroundColor: Colors.black,
+      body: Stack(
         children: [
-          Text(date.toString()),
-          Container(
-            child: Image.asset("assets/images/emma.png"),
+          ///particles
+
+          Positioned(
+            top: 20,
+            child: Text(
+              date.toString(),
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 0,
+            bottom: 0,
+            child: Container(
+              child: Image.asset("assets/images/emma.png"),
+            ),
           ),
         ],
       ),
