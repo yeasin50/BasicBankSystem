@@ -4,12 +4,14 @@ import 'package:bank_app_social/provider/client_provider.dart';
 import 'package:bank_app_social/screens/authScreen.dart';
 import 'package:bank_app_social/screens/client_profile.dart';
 import 'package:bank_app_social/screens/moneyTransferScreen.dart';
+import 'package:bank_app_social/screens/transaction_loading.dart';
 import 'package:bank_app_social/widgets/transaction_overview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'provider/dummy_data.dart';
+import 'screens/dbTester.dart';
 import 'screens/homeScreen.dart';
 import 'screens/dash_rive.dart';
 import 'screens/imageTest.dart';
@@ -44,6 +46,7 @@ class MyApp extends StatelessWidget {
             ClientsOverviewScreen.routeName: (_) => ClientsOverviewScreen(),
             ClientProfile.routeName: (_) => ClientProfile(),
             TransactionScreen.routeName: (_) => TransactionScreen(),
+            TransactionLoading.routeName: (_) => TransactionLoading(),
           },
         ));
   }
@@ -64,8 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
       child: SafeArea(
         child: Stack(
           children: [
+            // DBTester(),
+            // ParticlesBackground(),
             ClientProfile(),
-            // AuthScreen(),
           ],
         ),
       ),

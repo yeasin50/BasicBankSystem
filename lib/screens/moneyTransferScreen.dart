@@ -2,12 +2,14 @@ import 'dart:developer';
 
 import 'package:bank_app_social/models/client.dart';
 import 'package:bank_app_social/provider/client_provider.dart';
+import 'package:bank_app_social/provider/dummy_data.dart';
 import 'package:bank_app_social/widgets/appBar.dart';
 import 'package:bank_app_social/widgets/transaction_overview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
+import 'package:bank_app_social/screens/transaction_loading.dart';
 
 class TransactionScreen extends StatefulWidget {
   static const String routeName = "/transaction_screen";
@@ -28,15 +30,15 @@ class _TransactionScreenState extends State<TransactionScreen> {
   // GlobalKey<AutoCompleteTextFieldState<String>> _keyNameField = new GlobalKey();
   String currentText = "";
   String? selectedName = "";
-  late final clientProvider;
+  late var clientProvider;
 
   ///TODO:: use provider to get clientNames
-  late List<String> suggetionNames;
+  List<String> suggetionNames = [];
 
   /// temp
   double amount = 0;
   String receiverName = "";
-  late Client sender, receiver;
+  Client sender = dummyData[0], receiver = dummyData[0];
 
   @override
   void initState() {
@@ -49,19 +51,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
       StepState.complete,
       StepState.error
     ];
+
     super.initState();
-  }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    clientProvider = Provider.of<ClientProvider>(
-      context,
-    );
-    suggetionNames = clientProvider.getClientNames();
-    sender = clientProvider.currentUser;
-    receiver = sender;
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      clientProvider = Provider.of<ClientProvider>(context, listen: false);
+      sender = clientProvider.currentUser;
+      suggetionNames = clientProvider.getClientNames();
+    });
   }
 
   @override
@@ -165,15 +162,20 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
   ///`Send Money`
   sendMoney() async {
-    // print("make transaction happen");
-    // print(receiver.name);
-    // print(sender.name);
-    // print("receiver from field: $receiverName");
-    bool success = clientProvider.transacte(receiver, amount);
+    // if (kIsWeb)
+    //   success = await clientProvider.transacte(receiver, amount);
+    // else {
+    //   success = await clientProvider.transactionOverSQL(receiver, amount);
+    // }
 
-    if (success) Navigator.of(context).pop();
-    // Provider.of<ClientProvider>(context)
-    //     .transacte(, amountController.text as double);
+    // if (success) Navigator.of(context).pop();
+    // // Provider.of<ClientProvider>(context)
+    // //     .transacte(, amountController.text as double);
+
+     Provider.of<ClientProvider>(context, listen: false)
+      ..setreceiver(receiver)
+      ..setamount(amount);
+    Navigator.of(context).pushNamed(TransactionLoading.routeName);
   }
 
   @override

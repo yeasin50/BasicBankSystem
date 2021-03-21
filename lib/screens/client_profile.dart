@@ -23,28 +23,23 @@ class ClientProfile extends StatefulWidget {
 }
 
 class _ClientProfileState extends State<ClientProfile> {
-  late Client clientData;
-  late int index;
+  int index = -1;
+  List<CardItem> getGriditems = [];
+  var provider;
 
   @override
   void initState() {
     super.initState();
 
     ///`For Designing UI`
-    clientData = dummyData[dummyData.length - 1];
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final provider = Provider.of<ClientProvider>(context);
-    index = ModalRoute.of(context)!.settings.arguments as int;
-    if (index != null) clientData = provider.clients[index];
-
-    ///change user
-    provider.currentUser = clientData;
-    //generate dummy list
-    // provider.generateDummyData();
+    // clientData = dummyData[dummyData.length - 1];
+    // print("initState");
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      provider = Provider.of<ClientProvider>(context, listen: false);
+      provider.initDB();
+      print("WidgetsBinding called");
+      // if (index != -1) clientData = provider.clients[index];
+    });
   }
 
   @override
@@ -61,18 +56,20 @@ class _ClientProfileState extends State<ClientProfile> {
     );
   }
 
-  Column buildBody(BuildContext context) {
+  Container buildBody(BuildContext context) {
     SizeConfig().init(context);
     double height = SizeConfig.screenHeight!;
     double width = SizeConfig.screenWidth!;
     double logoRadious = getProportionateScreenWidth(60);
 
     var cartItem = 2;
-    var cartSize = width * .23 * 3 / cartItem;
+    // var cartSize = width * .23 * 3 / cartItem
 
     ///`generated Options`
     //* we need to pass size according gridItem list, coz that design depend on this Size
-    List<CardItem> getGriditems = [
+    var cartSize = width * .23 * 3 / cartItem;
+
+    getGriditems = [
       CardItem(
           size: cartSize,
           text: "Send Money",
@@ -151,29 +148,29 @@ class _ClientProfileState extends State<ClientProfile> {
     void onOptionClick(int index) {
       switch (index) {
         case 0:
-          log("Send Money");
+          // log("Send Money");
           Navigator.of(context).pushNamed(TransactionScreen.routeName);
           break;
 
         case 1:
           Navigator.of(context).pushNamed(ClientsOverviewScreen.routeName);
-          log("OverView");
+          // log("OverView");
           break;
 
         case 2:
-          log("Recharge");
+          print("Recharge");
           break;
 
         case 3:
-          log("Cash Out");
+          print("Cash Out");
           break;
 
         case 4:
-          log("Reset Pin");
+          print("Reset Pin");
           break;
 
         case 5:
-          log("help");
+          print("help");
           break;
 
         default:
@@ -181,138 +178,145 @@ class _ClientProfileState extends State<ClientProfile> {
       }
     }
 
-    return Column(children: <Widget>[
-      ///``
-      Container(
-        // color: Colors.green,
-        height: height * .3,
-        width: SizeConfig.screenWidth,
-        child: Stack(
+    return Container(
+      child: Consumer<ClientProvider>(
+        builder: (_, data, c) => Column(
           children: <Widget>[
-            if (index != null)
-              Positioned(
-                left: 10,
-                top: 30,
-                child: InkWell(
-                  child: Icon(
-                    Icons.arrow_back,
-                    color: Colors.red,
-                  ),
-                  onTap: () => Navigator.of(context)
-                      .pushReplacementNamed(ClientsOverviewScreen.routeName),
-                ),
-              ),
-            Positioned(
-              left: 0,
-              right: 0,
-              top: 20,
-              child: Container(
-                alignment: Alignment.bottomCenter,
-                // color: Colors.grey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: kIsWeb
-                          ? width > 400
-                              ? 200
-                              : 100
-                          : width * .4,
-                      height: kIsWeb
-                          ? height > 400
-                              ? 200
-                              : 200
-                          : width * .4,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(180),
-                        child: Hero(
-                          tag: "rowItem$index",
-                          child: Image.asset(
-                            clientData.imagePath,
-                            fit: BoxFit.cover,
+            ///``
+            Container(
+              // color: Colors.green,
+              height: height * .3,
+              width: SizeConfig.screenWidth,
+              child: Stack(
+                children: <Widget>[
+                  // if (index != -1)
+                  //   Positioned(
+                  //     left: 10,
+                  //     top: 30,
+                  //     child: InkWell(
+                  //       child: Icon(
+                  //         Icons.arrow_back,
+                  //         color: Colors.red,
+                  //       ),
+                  //       onTap: () => Navigator.of(context)
+                  //           .pushReplacementNamed(ClientsOverviewScreen.routeName),
+                  //     ),
+                  //   ),
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    top: 20,
+                    child: Container(
+                      alignment: Alignment.bottomCenter,
+                      // color: Colors.grey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: kIsWeb
+                                ? width > 400
+                                    ? 200
+                                    : 100
+                                : width * .4,
+                            height: kIsWeb
+                                ? height > 400
+                                    ? 200
+                                    : 200
+                                : width * .4,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(180),
+                              child: Hero(
+                                tag: "rowItem$index",
+                                child: Image.asset(
+                                  data.currentUser.imagePath,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                    blurRadius: 15,
+                                    color: Colors.blue,
+                                    spreadRadius: 10),
+                              ],
+                            ),
                           ),
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                              blurRadius: 15,
-                              color: Colors.blue,
-                              spreadRadius: 10),
+                          SizedBox(
+                            height: logoRadious * .1,
+                          ),
+
+                          ///`Name Field`
+                          Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              color: Colors.white.withOpacity(.9),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: Text(
+                              data.currentUser.name,
+                              style: TextStyle(
+                                  fontSize: Theme.of(context)
+                                      .textTheme
+                                      .headline6!
+                                      .fontSize),
+                            ),
+                          ),
+                          SizedBox(
+                            height: logoRadious * .1,
+                          ),
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: logoRadious * .1,
-                    ),
+                  ),
+                ],
+              ),
+            ),
+            ///`EOF Header`
+            ///DONE:: Balance ,
+            CurrentBalanceBar(),
+            // CurrentBalanceBar(34343),
 
-                    ///`Name Field`
-                    Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        color: Colors.white.withOpacity(.9),
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: Text(
-                        clientData.name,
-                        style: TextStyle(
-                            fontSize: Theme.of(context)
-                                .textTheme
-                                .headline6!
-                                .fontSize),
-                      ),
+            ///Done:: send money, transactionList,// we will make build method with containter size
+            // Expanded(
+            //   child: GridView.count(
+            //     crossAxisCount: cartItem,
+            //     childAspectRatio: 1 / 1,
+            //     crossAxisSpacing: 16,
+            //     mainAxisSpacing: 16,
+            //     padding: const EdgeInsets.all(24),
+            //     children: getGriditems,
+            //     physics: BouncingScrollPhysics(),
+            //   ),
+            // ),
+
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: GridView.builder(
+                    physics: BouncingScrollPhysics(),
+                    itemCount: getGriditems.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: cartItem,
+                      mainAxisSpacing: 24,
+                      childAspectRatio: 1,
+                      crossAxisSpacing: 24,
                     ),
-                    SizedBox(
-                      height: logoRadious * .1,
-                    ),
-                  ],
-                ),
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkResponse(
+                        child: getGriditems[index],
+                        onTap: () => onOptionClick(index),
+                      );
+                    }),
               ),
             ),
           ],
         ),
       ),
-
-      ///`EOF Header`
-      ///DONE:: Balance ,
-      CurrentBalanceBar(clientData.balance),
-
-      ///Done:: send money, transactionList,// we will make build method with containter size
-      // Expanded(
-      //   child: GridView.count(
-      //     crossAxisCount: cartItem,
-      //     childAspectRatio: 1 / 1,
-      //     crossAxisSpacing: 16,
-      //     mainAxisSpacing: 16,
-      //     padding: const EdgeInsets.all(24),
-      //     children: getGriditems,
-      //     physics: BouncingScrollPhysics(),
-      //   ),
-      // ),
-
-      Expanded(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: GridView.builder(
-              physics: BouncingScrollPhysics(),
-              itemCount: getGriditems.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: cartItem,
-                mainAxisSpacing: 24,
-                childAspectRatio: 1,
-                crossAxisSpacing: 24,
-              ),
-              itemBuilder: (BuildContext context, int index) {
-                return InkResponse(
-                  child: getGriditems[index],
-                  onTap: () => onOptionClick(index),
-                );
-              }),
-        ),
-      ),
-    ]);
+    );
   }
 }

@@ -23,6 +23,12 @@ class _ClientsOverviewScreenState extends State<ClientsOverviewScreen> {
     super.initState();
   }
 
+  getdata() async {
+    var c = Provider.of<ClientProvider>(context, listen: false).clients;
+    print(c.length.toString());
+    return c;
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -50,20 +56,51 @@ class _ClientsOverviewScreenState extends State<ClientsOverviewScreen> {
             title: const Text("Users"),
           ),
         Consumer<ClientProvider>(
-          builder: (_, data, __) => Expanded(
-            child: ListView.separated(
-              itemCount: data.clients.length,
-              itemBuilder: (context, index) {
-                return ClientRow(index);
-              },
-              separatorBuilder: (BuildContext context, int index) => Divider(
-                thickness: 2,
-                indent: 20,
-                endIndent: 20,
-              ),
-              physics: BouncingScrollPhysics(),
-            ),
-          ),
+          builder: (_, data, __) => FutureBuilder(
+              future: getdata(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting)
+                  return CircularProgressIndicator();
+
+                if (!snapshot.hasData)
+                  return Column(
+                    children: [
+                      Text(
+                        "No data",
+                        style: TextStyle(
+                          backgroundColor: Colors.white,
+                        ),
+                      ),
+                      RaisedButton(
+                        onPressed: getdata,
+                        child: Text("get Data"),
+                      ),
+                    ],
+                  );
+                if (snapshot.hasData)
+                  return Expanded(
+                    child: ListView.separated(
+                      itemCount: data.clients.length,
+                      itemBuilder: (context, index) {
+                        return ClientRow(index);
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          Divider(
+                        thickness: 2,
+                        indent: 20,
+                        endIndent: 20,
+                      ),
+                      physics: BouncingScrollPhysics(),
+                    ),
+                  );
+                else
+                  return Text(
+                    "Somwthing Bad happen",
+                    style: TextStyle(
+                      backgroundColor: Colors.white,
+                    ),
+                  );
+              }),
         ),
       ],
     );

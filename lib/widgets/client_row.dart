@@ -20,8 +20,13 @@ class ClientRow extends StatelessWidget {
         width: double.infinity,
         child: ListTile(
           tileColor: Colors.transparent,
-          onTap: () {
+          onTap: () async {
             // log("On Tap: ${value.clients[index]!.name}");
+            ///let's just use provider
+            final provider =
+                Provider.of<ClientProvider>(context, listen: false);
+            await provider.setcurrentUser(index!);
+
             ///`for single value we arent doing map`
             Navigator.of(context)
                 .pushNamed(ClientProfile.routeName, arguments: index);
@@ -38,7 +43,7 @@ class ClientRow extends StatelessWidget {
 
           title: Text(value.clients[index]!.name),
           // subtitle: Text(value.clients[index]!.phone),
-          trailing: Text(""),
+          trailing: Text(value.clients[index]!.balance.toString()),
         ),
       ),
     );

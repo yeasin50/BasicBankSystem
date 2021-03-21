@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CurrentBalanceBar extends StatelessWidget {
-  final double balance;
-  CurrentBalanceBar(this.balance);
+  //  double balance;
+  // CurrentBalanceBar(this.balance);
 
   ///TODO::: Lets color balance later , help `adobe color intel`
   @override
@@ -13,7 +13,7 @@ class CurrentBalanceBar extends StatelessWidget {
     double heigth = SizeConfig.screenHeight! * .1;
     double width = SizeConfig.screenWidth! * .01;
     return Consumer<ClientProvider>(
-      builder: (_, data, __) => Container(
+      builder: (_, data, c) => Container(
         alignment: Alignment.centerLeft,
         margin: EdgeInsets.symmetric(horizontal: width, vertical: heigth * .1),
         padding: EdgeInsets.symmetric(horizontal: width, vertical: heigth * .1),
@@ -36,7 +36,7 @@ class CurrentBalanceBar extends StatelessWidget {
         ),
         child: FittedBox(
           child: Text(
-            "\$ $balance",
+            "\$ ${data.currentUser.balance}",
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: Theme.of(context).textTheme.headline4!.fontSize),
