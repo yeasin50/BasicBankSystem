@@ -4,6 +4,7 @@ import 'package:bank_app_social/provider/anim_provider.dart';
 import 'package:bank_app_social/screens/client_profile.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class AuthForm extends StatefulWidget {
@@ -67,6 +68,7 @@ class _AuthFormState extends State<AuthForm> {
               mainAxisAlignment: MainAxisAlignment.center,
               // mainAxisSize: MainAxisSize.min,
               children: [
+                ///`user name`
                 Container(
                   width: kIsWeb
                       ? width > 400
@@ -76,7 +78,15 @@ class _AuthFormState extends State<AuthForm> {
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     color: Colors.white.withOpacity(.9),
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.white.withOpacity(.5),
+                          blurRadius: 2,
+                          spreadRadius: 4),
+                    ],
                   ),
                   child: TextFormField(
                     cursorColor: Colors.pink,
@@ -105,8 +115,10 @@ class _AuthFormState extends State<AuthForm> {
                   ),
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 7,
                 ),
+
+                ///`password field`
                 Container(
                   width: kIsWeb
                       ? width > 400
@@ -116,7 +128,15 @@ class _AuthFormState extends State<AuthForm> {
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     color: Colors.white.withOpacity(.9),
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.white.withOpacity(.5),
+                          blurRadius: 2,
+                          spreadRadius: 4),
+                    ],
                   ),
                   child: TextFormField(
                     cursorColor: Colors.green,
@@ -146,27 +166,45 @@ class _AuthFormState extends State<AuthForm> {
                   height: 15,
                 ),
                 //TODO;; fixe for web
+                ///`Login button`
                 GestureDetector(
                   child: Container(
+                    alignment: Alignment.center,
                     width: kIsWeb
                         ? width > 400
-                            ? 200
+                            ? 250
                             : width
                         : 200,
+                    height: 50,
                     child: Text(
                       "Login",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                        fontSize:
-                            Theme.of(context).textTheme.headline4!.fontSize,
+                      style: GoogleFonts.abrilFatface(
+                        textStyle: TextStyle(
+                          color: Colors.white,
+                          // fontWeight: FontWeight.bold,
+                          letterSpacing: 2,
+                          fontSize:
+                              Theme.of(context).textTheme.headline6!.fontSize,
+                        ),
                       ),
                     ),
                     decoration: BoxDecoration(
                       shape: BoxShape.rectangle,
-                      color: Colors.white.withOpacity(.9),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: BorderRadius.all(Radius.circular(180)),
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromRGBO(86, 135, 252, 1),
+                          Color.fromRGBO(132, 29, 222, 1),
+                        ],
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromRGBO(86, 135, 252, .5),
+                          blurRadius: 7,
+                          spreadRadius: 10,
+                        ),
+                      ],
                     ),
                   ),
                   onTap: _trySubmit,
@@ -174,7 +212,7 @@ class _AuthFormState extends State<AuthForm> {
                 SizedBox(
                   height: 12,
                 ),
-                //facebook google 
+                //facebook google
                 Container(
                   margin: EdgeInsets.symmetric(
                     horizontal: 20,

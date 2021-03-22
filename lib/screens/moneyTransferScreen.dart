@@ -172,7 +172,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
     // // Provider.of<ClientProvider>(context)
     // //     .transacte(, amountController.text as double);
 
-     Provider.of<ClientProvider>(context, listen: false)
+    Provider.of<ClientProvider>(context, listen: false)
       ..setreceiver(receiver)
       ..setamount(amount);
     Navigator.of(context).pushNamed(TransactionLoading.routeName);

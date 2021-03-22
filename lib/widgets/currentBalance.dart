@@ -20,18 +20,22 @@ class CurrentBalanceBar extends StatelessWidget {
         width: double.infinity,
         height: heigth,
         decoration: BoxDecoration(
-          color: Colors.purple,
+          // color: Colors.purple,
           gradient: new LinearGradient(
-              colors: [Colors.red, Colors.cyan],
+              colors: [
+                Colors.red.withOpacity(.5),
+                Colors.cyan.withOpacity(.7),
+              ],
               begin: Alignment.centerRight,
               end: Alignment.centerLeft,
               // end: new Alignment(0.8, 0.0),
               tileMode: TileMode.clamp),
           boxShadow: [
             BoxShadow(
-              color: Colors.white.withOpacity(.9),
-              offset: new Offset(2.0, 4.0),
-            )
+              blurRadius: 15,
+              color: Colors.blue,
+              spreadRadius: 4,
+            ),
           ],
         ),
         child: FittedBox(
@@ -39,6 +43,8 @@ class CurrentBalanceBar extends StatelessWidget {
             "\$ ${data.currentUser.balance}",
             textAlign: TextAlign.center,
             style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
                 fontSize: Theme.of(context).textTheme.headline4!.fontSize),
           ),
         ),

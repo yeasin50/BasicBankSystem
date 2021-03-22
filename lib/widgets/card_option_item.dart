@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:bank_app_social/configs/size.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CardItem extends StatelessWidget {
   final String text;
@@ -37,7 +40,7 @@ class CardItem extends StatelessWidget {
               decoration: new BoxDecoration(
                   color: Colors.white.withOpacity(.7),
                   border: new Border.all(
-                    color: Colors.green,
+                    color: Colors.blueAccent,
                     width: 5.0,
                     style: BorderStyle.solid,
                   ),
@@ -49,8 +52,10 @@ class CardItem extends StatelessWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.green.withOpacity(.54),
-                      offset: const Offset(5.0, 5.0),
+                      color: Colors.blueAccent.withOpacity(.7),
+                      // offset: const Offset(5.0, 5.0),
+                      blurRadius: 10,
+                      spreadRadius: 7,
                     )
                   ]),
               child: Align(
@@ -58,9 +63,14 @@ class CardItem extends StatelessWidget {
                 child: FittedBox(
                   child: Text(
                     text,
-                    // textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: Theme.of(context).textTheme.bodyText2!.fontSize,
+                    textAlign: TextAlign.end,
+                    style: GoogleFonts.lateef(
+                      textStyle: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
+                        fontSize:
+                            Theme.of(context).textTheme.headline4!.fontSize,
+                      ),
                     ),
                   ),
                 ),
@@ -71,7 +81,19 @@ class CardItem extends StatelessWidget {
             top: size * .02,
             left: 0,
             right: 0,
-            child: logo,
+            child: Container(
+                decoration: new BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.white.withOpacity(.7),
+                      // offset: const Offset(5.0, 5.0),
+                      blurRadius: 10,
+                      spreadRadius: 7,
+                    )
+                  ],
+                ),
+                child: logo),
           ),
         ],
       ),

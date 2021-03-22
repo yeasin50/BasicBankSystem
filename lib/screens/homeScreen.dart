@@ -43,66 +43,72 @@ class _ClientsOverviewScreenState extends State<ClientsOverviewScreen> {
     );
   }
 
-  Column buildColumnBody() {
-    return Column(
-      children: [
-        if (kIsWeb)
-          MyAppBar(
-            "Users",
+  Padding buildColumnBody() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          if (kIsWeb)
+            MyAppBar(
+              "Users",
+            ),
+          if (!kIsWeb)
+            AppBar(
+              backgroundColor: Colors.blue.withOpacity(.4),
+              title: const Text("Users"),
+            ),
+          const SizedBox(
+            height: 10,
           ),
-        if (!kIsWeb)
-          AppBar(
-            backgroundColor: Colors.blue.withOpacity(.4),
-            title: const Text("Users"),
-          ),
-        Consumer<ClientProvider>(
-          builder: (_, data, __) => FutureBuilder(
-              future: getdata(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting)
-                  return CircularProgressIndicator();
+          Consumer<ClientProvider>(
+            builder: (_, data, __) => FutureBuilder(
+                future: getdata(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting)
+                    return CircularProgressIndicator();
 
-                if (!snapshot.hasData)
-                  return Column(
-                    children: [
-                      Text(
-                        "No data",
-                        style: TextStyle(
-                          backgroundColor: Colors.white,
+                  if (!snapshot.hasData)
+                    return Column(
+                      children: [
+                        Text(
+                          "No data",
+                          style: TextStyle(
+                            backgroundColor: Colors.white,
+                          ),
                         ),
+                        RaisedButton(
+                          onPressed: getdata,
+                          child: Text("get Data"),
+                        ),
+                      ],
+                    );
+                  if (snapshot.hasData)
+                    return Expanded(
+                      child: ListView.separated(
+                        itemCount: data.clients.length,
+                        itemBuilder: (context, index) {
+                          return ClientRow(index);
+                        },
+                        separatorBuilder: (BuildContext context, int index) =>
+                            Divider(
+                          thickness: 2,
+                          indent: 20,
+                          endIndent: 20,
+                        ),
+                        physics: BouncingScrollPhysics(),
                       ),
-                      RaisedButton(
-                        onPressed: getdata,
-                        child: Text("get Data"),
+                    );
+                  else
+                    return Text(
+                      "Somwthing Bad happen",
+                      style: TextStyle(
+                        backgroundColor: Colors.white,
                       ),
-                    ],
-                  );
-                if (snapshot.hasData)
-                  return Expanded(
-                    child: ListView.separated(
-                      itemCount: data.clients.length,
-                      itemBuilder: (context, index) {
-                        return ClientRow(index);
-                      },
-                      separatorBuilder: (BuildContext context, int index) =>
-                          Divider(
-                        thickness: 2,
-                        indent: 20,
-                        endIndent: 20,
-                      ),
-                      physics: BouncingScrollPhysics(),
-                    ),
-                  );
-                else
-                  return Text(
-                    "Somwthing Bad happen",
-                    style: TextStyle(
-                      backgroundColor: Colors.white,
-                    ),
-                  );
-              }),
-        ),
-      ],
+                    );
+                }),
+          ),
+        ],
+      ),
     );
   }
 }

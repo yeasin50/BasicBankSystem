@@ -42,11 +42,11 @@ class ClientProvider with ChangeNotifier {
   }
 
   Future<void> _initDB() async {
-    print("provider init sql");
+    // print("provider init sql");
     if (_clients.isEmpty) {
       for (int i = 0; i < dummyData.length; i++) {
         var result = await db.insert(ClientDatabse.tableName, dummyData[i]);
-        print("result Of $i: $result");
+        // print("result Of $i: $result");
       }
       _currentUser = dummyData[0];
     }
@@ -72,7 +72,7 @@ class ClientProvider with ChangeNotifier {
 
   Future<void> setcurrentUser(int index) async {
     _currentUser = await _clients[index];
-    print("currrent user: ${_currentUser.name}");
+    // print("currrent user: ${_currentUser.name}");
     notifyListeners();
   }
 
@@ -122,8 +122,8 @@ class ClientProvider with ChangeNotifier {
 
   ///make transactin over sql
   Future<int> transactionOverSQL() async {
-    print(
-        "sender ${currentUser.name}: ${currentUser.balance} receiver ${receiver.name}: ${receiver.balance} ");
+    // print(
+    //     "sender ${currentUser.name}: ${currentUser.balance} receiver ${receiver.name}: ${receiver.balance} ");
 
     ///sender side
     var sC = currentUser;
@@ -135,7 +135,7 @@ class ClientProvider with ChangeNotifier {
     rC.balance += amount;
     if (result == 1) await db.update(rC);
 
-    print(result.toString());
+    // print(result.toString());
 
     return result;
   }

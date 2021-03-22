@@ -13,6 +13,7 @@ import 'package:bank_app_social/widgets/particles_bg.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ClientProfile extends StatefulWidget {
@@ -34,12 +35,6 @@ class _ClientProfileState extends State<ClientProfile> {
     ///`For Designing UI`
     // clientData = dummyData[dummyData.length - 1];
     // print("initState");
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      provider = Provider.of<ClientProvider>(context, listen: false);
-      provider.initDB();
-      print("WidgetsBinding called");
-      // if (index != -1) clientData = provider.clients[index];
-    });
   }
 
   @override
@@ -202,48 +197,22 @@ class _ClientProfileState extends State<ClientProfile> {
                   //           .pushReplacementNamed(ClientsOverviewScreen.routeName),
                   //     ),
                   //   ),
+                  ///`header Icon`
                   Positioned(
                     left: 0,
                     right: 0,
                     top: 20,
                     child: Container(
                       alignment: Alignment.bottomCenter,
+                      color: Colors.transparent,
                       // color: Colors.grey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            width: kIsWeb
-                                ? width > 400
-                                    ? 200
-                                    : 100
-                                : width * .4,
-                            height: kIsWeb
-                                ? height > 400
-                                    ? 200
-                                    : 200
-                                : width * .4,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(180),
-                              child: Hero(
-                                tag: "rowItem$index",
-                                child: Image.asset(
-                                  data.currentUser.imagePath,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 15,
-                                    color: Colors.blue,
-                                    spreadRadius: 10),
-                              ],
-                            ),
-                          ),
+                          if (kIsWeb)
+                            buildProfileIcon(height * .5, height * .5, data),
+                          if (!kIsWeb) buildProfileIcon(width, height, data),
+
                           SizedBox(
                             height: logoRadious * .1,
                           ),
@@ -259,11 +228,13 @@ class _ClientProfileState extends State<ClientProfile> {
                             ),
                             child: Text(
                               data.currentUser.name,
-                              style: TextStyle(
-                                  fontSize: Theme.of(context)
-                                      .textTheme
-                                      .headline6!
-                                      .fontSize),
+                              style: GoogleFonts.openSans(
+                                textStyle: TextStyle(
+                                    fontSize: Theme.of(context)
+                                        .textTheme
+                                        .headline6!
+                                        .fontSize),
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -276,9 +247,11 @@ class _ClientProfileState extends State<ClientProfile> {
                 ],
               ),
             ),
+
             ///`EOF Header`
             ///DONE:: Balance ,
             CurrentBalanceBar(),
+
             // CurrentBalanceBar(34343),
 
             ///Done:: send money, transactionList,// we will make build method with containter size
@@ -296,7 +269,7 @@ class _ClientProfileState extends State<ClientProfile> {
 
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(24.0),
+                padding: const EdgeInsets.all(20.0),
                 child: GridView.builder(
                     physics: BouncingScrollPhysics(),
                     itemCount: getGriditems.length,
@@ -316,6 +289,34 @@ class _ClientProfileState extends State<ClientProfile> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Container buildProfileIcon(double width, double height, ClientProvider data) {
+    return Container(
+      width: width * .4,
+      height: width * .4,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(180),
+        child: Hero(
+          tag: "rowItem$index",
+          child: Image.asset(
+            data.currentUser.imagePath,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(.8),
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 15,
+            color: Colors.blue,
+            spreadRadius: 10,
+          ),
+        ],
       ),
     );
   }

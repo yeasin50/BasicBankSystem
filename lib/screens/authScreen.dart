@@ -18,6 +18,17 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      var provider = Provider.of<ClientProvider>(context, listen: false);
+      provider.initDB();
+      print("WidgetsBinding called");
+      // if (index != -1) clientData = provider.clients[index];
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     var width = SizeConfig.screenWidth!;
@@ -29,7 +40,7 @@ class _AuthScreenState extends State<AuthScreen> {
       resizeToAvoidBottomInset: false,
 
       ///TODO:: fix bg COlor
-      backgroundColor: Colors.black54,
+      backgroundColor: Colors.transparent.withOpacity(.1),
       body: Consumer<DashProvider>(
         builder: (context, data, __) => GestureDetector(
           behavior: HitTestBehavior.opaque,

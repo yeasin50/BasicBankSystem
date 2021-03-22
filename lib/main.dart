@@ -8,6 +8,7 @@ import 'package:bank_app_social/screens/transaction_loading.dart';
 import 'package:bank_app_social/widgets/transaction_overview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'provider/dummy_data.dart';
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
           title: 'Basic Bank System',
           theme: ThemeData(
             primarySwatch: Colors.blue,
+            textTheme: GoogleFonts.latoTextTheme(
+              Theme.of(context).textTheme,
+            ),
           ),
           home: MyHomePage(),
           routes: {
@@ -68,8 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Stack(
           children: [
             // DBTester(),
-            // ParticlesBackground(),
-            ClientProfile(),
+            ParticlesBackground(),
+            AuthScreen(),
           ],
         ),
       ),
