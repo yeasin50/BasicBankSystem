@@ -11,6 +11,7 @@ class TransactionLoading extends StatefulWidget {
   _TransactionLoadingState createState() => _TransactionLoadingState();
 }
 
+//// `TODO:: loading screen`
 class _TransactionLoadingState extends State<TransactionLoading> {
   @override
   void initState() {
@@ -23,7 +24,6 @@ class _TransactionLoadingState extends State<TransactionLoading> {
   Future<void> sendMoney() async {
     final clientProvider = Provider.of<ClientProvider>(context, listen: false);
     dynamic success = false;
-
     if (kIsWeb)
       success = await clientProvider.transacte();
     else {

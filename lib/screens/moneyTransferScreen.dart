@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
-import 'package:bank_app_social/screens/transaction_loading.dart';
+import 'package:bank_app_social/screens/loading_screen.dart';
 
 class TransactionScreen extends StatefulWidget {
   static const String routeName = "/transaction_screen";

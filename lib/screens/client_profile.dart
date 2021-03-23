@@ -139,6 +139,11 @@ class _ClientProfileState extends State<ClientProfile> {
           )),
     ];
 
+    ///snackBar
+    void _sSnackBar() {
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text("later 😁")));
+    }
+
     /// navigate to Diff Screen
     void onOptionClick(int index) {
       switch (index) {
@@ -151,25 +156,10 @@ class _ClientProfileState extends State<ClientProfile> {
           Navigator.of(context).pushNamed(ClientsOverviewScreen.routeName);
           // log("OverView");
           break;
-
-        case 2:
-          print("Recharge");
-          break;
-
-        case 3:
-          print("Cash Out");
-          break;
-
-        case 4:
-          print("Reset Pin");
-          break;
-
-        case 5:
-          print("help");
-          break;
-
         default:
           log("None gonna happen");
+          _sSnackBar();
+          break;
       }
     }
 
