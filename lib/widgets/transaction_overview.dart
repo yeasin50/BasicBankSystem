@@ -4,6 +4,7 @@ import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+// ignore: must_be_immutable
 class TransactionConfOverview extends StatelessWidget {
   final Client sender, receiver;
   final double amount;

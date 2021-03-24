@@ -1,5 +1,4 @@
 import 'package:bank_app_social/configs/size.dart';
-import 'package:bank_app_social/configs/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

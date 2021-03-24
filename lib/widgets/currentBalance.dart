@@ -7,7 +7,7 @@ class CurrentBalanceBar extends StatelessWidget {
   //  double balance;
   // CurrentBalanceBar(this.balance);
 
-  ///TODO::: Lets color balance later , help `adobe color intel`
+  ///::: Lets color balance later , help `adobe color intel`
   @override
   Widget build(BuildContext context) {
     double heigth = SizeConfig.screenHeight! * .1;

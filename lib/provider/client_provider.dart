@@ -17,7 +17,7 @@ class ClientProvider with ChangeNotifier {
   Client get receiver => _receiver;
   void setreceiver(Client receiver_) {
     _receiver = receiver_;
-    print("receiver name: ${_receiver.name}");
+    // print("receiver name: ${_receiver.name}");
     notifyListeners();
   }
 
@@ -45,7 +45,7 @@ class ClientProvider with ChangeNotifier {
     // print("provider init sql");
     if (_clients.isEmpty) {
       for (int i = 0; i < dummyData.length; i++) {
-        var result = await db.insert(ClientDatabse.tableName, dummyData[i]);
+         await db.insert(ClientDatabse.tableName, dummyData[i]);
         // print("result Of $i: $result");
       }
       _currentUser = dummyData[0];
@@ -71,7 +71,7 @@ class ClientProvider with ChangeNotifier {
   get totalClient => _clients.length;
 
   Future<void> setcurrentUser(int index) async {
-    _currentUser = await _clients[index];
+    _currentUser =  _clients[index];
     // print("currrent user: ${_currentUser.name}");
     notifyListeners();
   }
@@ -107,10 +107,17 @@ class ClientProvider with ChangeNotifier {
   }
 
   /// `initialzied Dummy Data as Test`
-  ///`Dummy data for Ui Test`
+  ///`Dummy data for web &  Ui Test`
+
+  bool _isValidTransaction = true;
+
+  get isValidTrasaction => _isValidTransaction;
 
   Future<bool> transacte() async {
-    if (_currentUser.balance < amount) return false;
+    if (_currentUser.balance < amount) {
+      _isValidTransaction = false;
+      return false;
+    }
     if (_currentUser.balance >= amount && kIsWeb) {
       _currentUser.balance -= amount;
       receiver.balance += amount;
@@ -126,7 +133,12 @@ class ClientProvider with ChangeNotifier {
     //     "sender ${currentUser.name}: ${currentUser.balance} receiver ${receiver.name}: ${receiver.balance} ");
 
     ///sender side
+
     var sC = currentUser;
+    if (sC.balance < amount) {
+      _isValidTransaction = false;
+      return -1;
+    }
     sC.balance -= amount;
     int result = await db.update(sC);
 

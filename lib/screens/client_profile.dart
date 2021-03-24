@@ -140,8 +140,8 @@ class _ClientProfileState extends State<ClientProfile> {
     ];
 
     ///snackBar
-    void _sSnackBar() {
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text("later 😁")));
+    void logText() {
+      print("later 😁");
     }
 
     /// navigate to Diff Screen
@@ -158,7 +158,7 @@ class _ClientProfileState extends State<ClientProfile> {
           break;
         default:
           log("None gonna happen");
-          _sSnackBar();
+          logText();
           break;
       }
     }

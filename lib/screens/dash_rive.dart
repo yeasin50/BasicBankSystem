@@ -157,7 +157,7 @@ class _RiveCharState extends State<RiveChar>
         // print("Change occurs");
         _changeState(state.state, state.prevState);
       }
-      return _riveArtboard == null
+      return  _riveArtboard ==null
           ? SizedBox()
           : AspectRatio(
               aspectRatio: 1,

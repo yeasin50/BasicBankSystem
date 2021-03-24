@@ -13,7 +13,7 @@ class AuthForm extends StatefulWidget {
 }
 
 class _AuthFormState extends State<AuthForm> {
-  final _formKey = GlobalKey<FormState>();
+ 
 
   late TextEditingController _nameController, _passController;
 
@@ -165,7 +165,7 @@ class _AuthFormState extends State<AuthForm> {
                 SizedBox(
                   height: 15,
                 ),
-                //TODO;; fixe for web
+               
                 ///`Login button`
                 GestureDetector(
                   child: Container(

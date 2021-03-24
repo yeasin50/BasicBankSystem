@@ -1,8 +1,6 @@
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:rive/rive.dart';
 
 enum DashState {
   happy, //need to make
@@ -24,7 +22,7 @@ class DashProvider with ChangeNotifier {
     _cstate = s;
     notifyListeners();
 
-    print(
-        "req: ${s.toString()} CurrentState: ${_cstate.toString()} Prev: ${_prevState.toString()}");
+    // print(
+    //     "req: ${s.toString()} CurrentState: ${_cstate.toString()} Prev: ${_prevState.toString()}");
   }
 }

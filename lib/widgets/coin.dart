@@ -1,4 +1,3 @@
-import 'package:bank_app_social/configs/size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_circular_text/circular_text/model.dart';
 import 'package:flutter_circular_text/circular_text/widget.dart';

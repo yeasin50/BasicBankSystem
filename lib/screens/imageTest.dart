@@ -1,10 +1,6 @@
-import 'dart:math';
 
-import 'package:bank_app_social/configs/size.dart';
-import 'package:bank_app_social/models/particle.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class ImageTest extends StatefulWidget {
   @override

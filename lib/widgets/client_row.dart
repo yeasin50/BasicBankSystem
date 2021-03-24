@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:bank_app_social/provider/client_provider.dart';
 import 'package:bank_app_social/screens/client_profile.dart';
 import 'package:flutter/material.dart';
@@ -32,10 +31,10 @@ class ClientRow extends StatelessWidget {
             Navigator.of(context)
                 .pushNamed(ClientProfile.routeName, arguments: index);
           },
-          leading: Hero(
-            tag: "rowItem" + index.toString(),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
+          leading: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Hero(
+                tag: "rowItem" + index.toString(),
                 child: Image.asset(
                   value.clients[index]!.imagePath,
                   fit: BoxFit.cover,

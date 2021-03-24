@@ -58,6 +58,7 @@ class _DBTesterState extends State<DBTester> {
             onPressed: dbSize,
             child: Text("DB size"),
           ),
+          // ignore: deprecated_member_use
           RaisedButton(
             onPressed: insertDB,
             child: Text("Insert $currentDB"),

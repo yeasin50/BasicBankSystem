@@ -1,8 +1,6 @@
 import 'package:bank_app_social/configs/size.dart';
 import 'package:bank_app_social/provider/anim_provider.dart';
 import 'package:bank_app_social/provider/client_provider.dart';
-import 'package:bank_app_social/provider/db_manager.dart';
-import 'package:bank_app_social/provider/dummy_data.dart';
 import 'package:bank_app_social/screens/dash_rive.dart';
 import 'package:bank_app_social/widgets/authForm.dart';
 import 'package:flutter/foundation.dart';
@@ -68,7 +66,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               if (!kIsWeb)
                 Positioned(
-                  top: 0,
+                  top: 70,
                   left: 0,
                   right: 0,
                   child: SizedBox(
@@ -79,7 +77,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               if (!kIsWeb)
                 Positioned(
-                  top: height * .4,
+                  bottom: height * .14,
                   left: 0,
                   right: 0,
                   child: SizedBox(

@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:bank_app_social/configs/size.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -35,8 +34,6 @@ class CardItem extends StatelessWidget {
               padding: EdgeInsets.only(
                 bottom: size * .1,
               ),
-
-              ///TODO:: modify this
               decoration: new BoxDecoration(
                   color: Colors.white.withOpacity(.7),
                   border: new Border.all(
@@ -69,7 +66,7 @@ class CardItem extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                         color: Colors.black,
                         fontSize:
-                            Theme.of(context).textTheme.headline4!.fontSize,
+                            Theme.of(context).textTheme.headline5!.fontSize,
                       ),
                     ),
                   ),

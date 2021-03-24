@@ -2,8 +2,6 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:bank_app_social/models/client.dart';
-import 'package:bank_app_social/provider/dummy_data.dart';
-import 'package:flutter/material.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart'
     show getApplicationDocumentsDirectory;
