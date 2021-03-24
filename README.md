@@ -1,5 +1,4 @@
-## Basic Bank System with Social Media Integration
-
+## Basic Bank System with Cool UI
 
 
 -----
@@ -8,7 +7,7 @@
 
 &nbsp;  ◇ Start with creating dummy data in mobile (sqlite) database for upto 10 users. User table will have basic fields such as
 `name, email, current balance` etc. Transfers table will record
-all transfers happened.  
+all transfers happened.  `need to work with it`
 
 ```
 ◇ Flow:
@@ -23,6 +22,7 @@ all transfers happened.
 between multiple customers .
 
 ---- 
+### later while sdk fix
 <font size=4.5>Task 5: Social Media Integration </font>
 
 &nbsp;  ◇ Create a mobile app, where user can login through at least
@@ -39,7 +39,6 @@ two social media from such as `Facebook and Google.`
 
 ----
 let's think about water drop effect for UI or partivles flow
-
 having trouble because all packages doesnt support null safelty 
 
 so we can run using this 
@@ -52,15 +51,11 @@ $ flutter run --no-sound-null-safety
 Rive2 doesnt have many things like flare/rive. we need make reverse method. also contrains doesnt support on rive2 -_-
 
 
-
-
 Colors 
-#18D191​  
-#FC6A7F​  
-#FFCE56​  
-#45E0EC​  
-#4364A1​ facebook  
-#DF513B​ google  
+`#4364A1​ facebook  `
+`#DF513B​ google  `
+
+
 
 ## Getting Started
 while flutter v2 support web on stable channel, we will use stable channel, for window,linux+.. use beta and read doc
