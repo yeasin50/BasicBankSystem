@@ -72,8 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
       child: SafeArea(
         child: Stack(
           children: [
-            ParticlesBackground(),
-            MoneyNote(coinRadius: 40,),
+            // ParticlesBackground(),
+            TransactionLoading(),
             // AuthScreen(),
           ],
         ),

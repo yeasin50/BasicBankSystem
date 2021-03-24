@@ -4,7 +4,7 @@ import 'package:flutter_circular_text/circular_text/model.dart';
 import 'package:flutter_circular_text/circular_text/widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MoneyNote extends StatelessWidget {
+class Coin extends StatelessWidget {
   /// Most countries do their printing on KBA format printing machines,.
   /// ` for which the optimal note size is 73mm height and 133mm`
   /// `width 125mm, height: 65 mm`
@@ -15,7 +15,7 @@ class MoneyNote extends StatelessWidget {
 
   final coinRadius;
 
-  const MoneyNote({Key? key, this.coinRadius}) : super(key: key);
+  const Coin({Key? key, this.coinRadius}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
