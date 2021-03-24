@@ -5,7 +5,6 @@ import 'package:bank_app_social/configs/size.dart';
 import 'package:bank_app_social/models/particle.dart';
 import 'package:flutter/material.dart';
 
-
 import 'neon_container.dart';
 
 class ParticlesBackground extends StatefulWidget {
@@ -55,6 +54,14 @@ class _ParticlesBackgroundState extends State<ParticlesBackground> {
         if (numberOfParticles % 4 == 2) {
           pt.velocity.x = -pt.velocity.x;
           pt.velocity.y = -pt.velocity.y;
+        }
+
+        /// litte dynamic velocity
+        if (index % 3 == 0) pt.velocity.y *= 1.2;
+        if (index % 3 == 1) pt.velocity.x *= .8;
+        if (index % 3 == 2) {
+          pt.velocity.x *= .8;
+          pt.velocity.y *= .9;
         }
 
         particles.add(pt);
