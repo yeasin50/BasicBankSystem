@@ -1,6 +1,17 @@
 ## Basic Bank System with Cool UI
 
+### Rive Dash Animation
+![Dash rive](https://github.com/yeasin50/BasicBankSystem/blob/master/output/particlesBG_2.gif)
+-  [dash_rive.dart](https://github.com/yeasin50/BasicBankSystem/blob/master/lib/screens/dash_rive.dart)  
 
+### Coin Design
+![Coin](https://github.com/yeasin50/BasicBankSystem/blob/master/output/coin.png)
+
+- [coin.dart](https://github.com/yeasin50/BasicBankSystem/blob/master/lib/widgets/coin.dart)
+
+- [with Animation](https://github.com/yeasin50/BasicBankSystem/blob/7f3c81856c058614770d3b8995d0eb6ee3b17b31/lib/screens/loading_screen.dart#L171-L183)  
+  
+[Profile Pic Decoration](https://github.com/yeasin50/BasicBankSystem/blob/master/lib/widgets/neon_container.dart)
 -----
 <font size=4.5> Task 2: Basic Banking App </font>  
 &nbsp;  ◇ Create a simple mobile app which has the following specs. 
