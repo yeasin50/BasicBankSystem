@@ -11,7 +11,16 @@
 
 - [with Animation](https://github.com/yeasin50/BasicBankSystem/blob/7f3c81856c058614770d3b8995d0eb6ee3b17b31/lib/screens/loading_screen.dart#L171-L183)  
   
-[Profile Pic Decoration](https://github.com/yeasin50/BasicBankSystem/blob/master/lib/widgets/neon_container.dart)
+
+- [Profile Pic Decoration](https://github.com/yeasin50/BasicBankSystem/blob/master/lib/widgets/neon_container.dart)
+
+
+- [BackGround](https://github.com/yeasin50/BasicBankSystem/blob/master/lib/widgets/particles_bg.dart)
+  
+### adjust number of particles 
+- [replace numberOfParticles ](https://github.com/yeasin50/BasicBankSystem/blob/39ec565366b4bac718aa13514e45a470cc3cd1ae/lib/widgets/particles_bg.dart#L37)
+- OR
+- [particle.dart](https://github.com/yeasin50/BasicBankSystem/blob/master/lib/models/particle.dart#L35)
 -----
 <font size=4.5> Task 2: Basic Banking App </font>  
 &nbsp;  ◇ Create a simple mobile app which has the following specs. 
