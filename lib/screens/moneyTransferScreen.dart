@@ -198,6 +198,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
               icon: Icon(Icons.arrow_back),
               onPressed: () => Navigator.of(context).pop(),
             ),
+            backgroundColor: Colors.blueAccent,
+            centerTitle: true,
           ),
         Expanded(
           child: Stepper(

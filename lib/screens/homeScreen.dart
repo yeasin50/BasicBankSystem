@@ -32,13 +32,15 @@ class _ClientsOverviewScreenState extends State<ClientsOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Stack(
-        children: [
-          ParticlesBackground(),
-          buildColumnBody(),
-        ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: [
+            ParticlesBackground(),
+            buildColumnBody(),
+          ],
+        ),
       ),
     );
   }

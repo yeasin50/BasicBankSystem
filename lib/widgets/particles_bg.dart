@@ -60,7 +60,7 @@ class _ParticlesBackgroundState extends State<ParticlesBackground> {
         if (index % 3 == 0) pt.velocity.y *= 1.2;
         if (index % 3 == 1) pt.velocity.x *= .8;
         if (index % 3 == 2) {
-          pt.velocity.x *= .8;
+          pt.velocity.x *= .6;
           pt.velocity.y *= .9;
         }
 

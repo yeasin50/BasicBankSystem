@@ -99,6 +99,10 @@ class _RiveCharState extends State<RiveChar>
   @override
   void initState() {
     super.initState();
+    _loadRive();
+  }
+
+  Future<void> _loadRive() async {
     rootBundle
         .load("assets/rives/dash(idle_ontype_hideontype,starttyping).riv")
         .then((data) async {
@@ -157,7 +161,7 @@ class _RiveCharState extends State<RiveChar>
         // print("Change occurs");
         _changeState(state.state, state.prevState);
       }
-      return  _riveArtboard ==null
+      return _riveArtboard == null
           ? SizedBox()
           : AspectRatio(
               aspectRatio: 1,

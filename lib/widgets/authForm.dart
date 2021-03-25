@@ -13,8 +13,6 @@ class AuthForm extends StatefulWidget {
 }
 
 class _AuthFormState extends State<AuthForm> {
- 
-
   late TextEditingController _nameController, _passController;
 
   _trySubmit() {
@@ -83,9 +81,9 @@ class _AuthFormState extends State<AuthForm> {
                     ),
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.white.withOpacity(.5),
-                          blurRadius: 2,
-                          spreadRadius: 4),
+                          color: Colors.blue.withOpacity(.6),
+                          blurRadius: 4,
+                          spreadRadius: 6),
                     ],
                   ),
                   child: TextFormField(
@@ -133,7 +131,7 @@ class _AuthFormState extends State<AuthForm> {
                     ),
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.white.withOpacity(.5),
+                          color: Colors.blue.withOpacity(.6),
                           blurRadius: 2,
                           spreadRadius: 4),
                     ],
@@ -165,7 +163,7 @@ class _AuthFormState extends State<AuthForm> {
                 SizedBox(
                   height: 15,
                 ),
-               
+
                 ///`Login button`
                 GestureDetector(
                   child: Container(
