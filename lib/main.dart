@@ -1,4 +1,3 @@
-
 import 'package:bank_app_social/provider/anim_provider.dart';
 import 'package:bank_app_social/provider/client_provider.dart';
 import 'package:bank_app_social/screens/authScreen.dart';
@@ -6,6 +5,7 @@ import 'package:bank_app_social/screens/client_profile.dart';
 import 'package:bank_app_social/screens/moneyTransferScreen.dart';
 import 'package:bank_app_social/screens/loading_screen.dart';
 import 'package:bank_app_social/screens/transfer_result_screen.dart';
+import 'package:bank_app_social/widgets/coin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -66,9 +66,16 @@ class _MyHomePageState extends State<MyHomePage> {
       child: SafeArea(
         child: Stack(
           children: [
-            ParticlesBackground(),
-            // DummyTest(),
-            AuthScreen(),
+            // ParticlesBackground(),
+            Scaffold(
+              backgroundColor: Colors.black,
+              body: Center(
+                child: Coin(
+                  coinRadius: 100,
+                ),
+              ),
+            ),
+            // AuthScreen(),
           ],
         ),
       ),

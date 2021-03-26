@@ -65,13 +65,13 @@ class Coin extends StatelessWidget {
             //   ..strokeWidth = 23
             //   ..strokeCap,
             position: CircularTextPosition.inside,
-            radius: 125,
+            radius: coinRadius / 2,
             children: [
               TextItem(
                 text: Text("Fake Currency".toUpperCase(),
                     style: GoogleFonts.coiny(
                       textStyle: TextStyle(
-                        fontSize: 20,
+                        fontSize: coinRadius/10-5,
                         color: const Color.fromRGBO(62, 0, 253, 1),
                         // fontWeight: FontWeight.bold,
                       ),
@@ -85,7 +85,7 @@ class Coin extends StatelessWidget {
                 text: Text(
                   "Build for UI Design".toUpperCase(),
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize:  coinRadius/10 - 5,
                     color: const Color.fromRGBO(227, 3, 3, 1),
                     fontWeight: FontWeight.bold,
                   ),
@@ -99,7 +99,7 @@ class Coin extends StatelessWidget {
                 text: Text(
                   "x",
                   style: GoogleFonts.lato(
-                    fontSize: 18,
+                    fontSize: coinRadius/10,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -113,7 +113,7 @@ class Coin extends StatelessWidget {
                 text: Text(
                   "x",
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: coinRadius/10,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
