@@ -1,5 +1,5 @@
 ## Basic Bank System with Cool UI
-
+[Video on LinkedIn](https://www.linkedin.com/posts/mdyeasinsheikh_task-flutterapp-flutterbygoogle-activity-6780926251118026752-qJWm)
 ### Rive Dash Animation
 ![Dash rive](https://github.com/yeasin50/BasicBankSystem/blob/master/output/particlesBG_2.gif)
 -  [dash_rive.dart](https://github.com/yeasin50/BasicBankSystem/blob/master/lib/screens/dash_rive.dart)  
@@ -14,8 +14,8 @@
 
 - [Profile Pic Decoration](https://github.com/yeasin50/BasicBankSystem/blob/master/lib/widgets/neon_container.dart)
 
-
 - [BackGround](https://github.com/yeasin50/BasicBankSystem/blob/master/lib/widgets/particles_bg.dart)
+
   
 ### adjust number of particles 
 - [replace numberOfParticles ](https://github.com/yeasin50/BasicBankSystem/blob/39ec565366b4bac718aa13514e45a470cc3cd1ae/lib/widgets/particles_bg.dart#L37)
