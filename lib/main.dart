@@ -11,6 +11,8 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import 'screens/dash_rive.dart';
+import 'screens/rive_test.dart';
 import 'screens/homeScreen.dart';
 import 'widgets/particles_bg.dart';
 
@@ -66,16 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
       child: SafeArea(
         child: Stack(
           children: [
-            // ParticlesBackground(),
-            Scaffold(
-              backgroundColor: Colors.black,
-              body: Center(
-                child: Coin(
-                  coinRadius: 100,
-                ),
-              ),
-            ),
-            // AuthScreen(),
+            ParticlesBackground(),
+            AuthScreen(),
           ],
         ),
       ),

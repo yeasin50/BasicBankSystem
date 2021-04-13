@@ -25,9 +25,9 @@ class _RiveCharState extends State<RiveChar>
       happyAnime = SimpleAnimation('happy'),
       sadAnime = SimpleAnimation('sad');
 
-  late Artboard _riveArtboard;
+  RuntimeArtboard _riveArtboard = RuntimeArtboard();
 
-  late AnimationController controller;
+  late RiveAnimationController _controller;
 
   /// we also need to make reverse mode while rive2 isnot giving us option
   /// miss you flare/rive1
@@ -102,16 +102,15 @@ class _RiveCharState extends State<RiveChar>
     _loadRive();
   }
 
-  Future<void> _loadRive() async {
+  _loadRive() {
     rootBundle
         .load("assets/rives/dash(idle_ontype_hideontype,starttyping).riv")
         .then((data) async {
-      final file = RiveFile();
-      if (file.import(data)) {
-        setState(() {
-          _riveArtboard = file.mainArtboard..addController(idleAnim);
-        });
-      }
+      final file = RiveFile.import(data);
+
+      final artboard = file.mainArtboard;
+      artboard.addController(_controller = idleAnim);
+      setState(() => _riveArtboard = artboard as RuntimeArtboard);
     });
   }
 

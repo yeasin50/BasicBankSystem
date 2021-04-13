@@ -1,6 +1,17 @@
 ## Basic Bank System with Cool UI
 [Video on LinkedIn](https://www.linkedin.com/posts/mdyeasinsheikh_task-flutterapp-flutterbygoogle-activity-6780926251118026752-qJWm)
-### Rive Dash Animation
+
+---- 
+![dependencies](https://img.shields.io/badge/channel-stable-blue) 
+![dependencies](https://img.shields.io/badge/Flutter-v2.0.3-blue) 
+![dependencies](https://img.shields.io/badge/Dart-v2.12.2-blue)
+![dependencies](https://img.shields.io/badge/rive-v0.7.2-blue)  
+
+### Rive Dash Animation   
+
+
+
+
 ![Dash rive](https://github.com/yeasin50/BasicBankSystem/blob/master/output/particlesBG_2.gif)
 -  [dash_rive.dart](https://github.com/yeasin50/BasicBankSystem/blob/master/lib/screens/dash_rive.dart)  
 
@@ -42,7 +53,7 @@ all transfers happened.  `need to work with it`
 between multiple customers .
 
 ---- 
-### later while sdk fix
+
 <font size=4.5>Task 5: Social Media Integration </font>
 
 &nbsp;  ◇ Create a mobile app, where user can login through at least
@@ -60,7 +71,6 @@ two social media from such as `Facebook and Google.`
 ----
 let's think about water drop effect for UI or partivles flow
 having trouble because all packages doesnt support null safelty 
-
 so we can run using this 
 
 ```
@@ -71,11 +81,12 @@ $ flutter run --no-sound-null-safety
 Rive2 doesnt have many things like flare/rive. we need make reverse method. also contrains doesnt support on rive2 -_-
 
 
-Colors 
-`#4364A1​ facebook  `
-`#DF513B​ google  `
+Colors   
+- `#4364A1​ facebook  `   
+- `#DF513B​ google  `
 
 
+-----
 
 ## Getting Started
 while flutter v2 support web on stable channel, we will use stable channel, for window,linux+.. use beta and read doc

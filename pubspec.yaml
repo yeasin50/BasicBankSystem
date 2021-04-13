@@ -33,7 +33,7 @@ dependencies:
   path_provider: ^2.0.1
   pin_code_fields: ^7.0.0
   provider: ^5.0.0
-  rive: ^0.6.8
+  rive: ^0.7.2
   simple_autocomplete_formfield: ^0.3.0
   sqflite: ^2.0.0+3
 
